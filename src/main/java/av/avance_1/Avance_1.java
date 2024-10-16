@@ -11,6 +11,7 @@ package av.avance_1;
 public class Avance_1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("Hello Mundo!");
+        System.out.print("Hola git");
     }
 }

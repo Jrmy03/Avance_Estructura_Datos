@@ -13,5 +13,7 @@ public class Avance_1 {
     public static void main(String[] args) {
         System.out.println("Hello Mundo!");
         System.out.print("Hola git");
+         System.out.print("Hola git");
+        
     }
 }

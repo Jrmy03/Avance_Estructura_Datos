@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package av.avance_1;
 
-/**
- *
- * @author Usuario
- */
+
 public class Cola {
 
     private NodoC frente;
@@ -30,7 +24,8 @@ public class Cola {
 
     public void setUltimo(NodoC ultimo) {
         this.ultimo = ultimo;
-    }
+    }                                                               //Métodos Miscelaneos
+    //-------------------------------------------------------------------------------------------------------------------------------------------//
 
     public boolean esVacia() {
         if (frente == null) {
@@ -38,36 +33,31 @@ public class Cola {
         } else {
             return false;
         }
-    }
-
-    public void encolar(String elemento) {
-        NodoC aux = new NodoC();
-        aux.setDato(elemento);
-        if (esVacia()) {
-
-            this.setFrente(aux);
-        }
-        else
-        {
-            this.getUltimo().setAtras(aux);
-        }
-        this.setUltimo(aux);
-    }
-
-    public void encolar(NodoC aux) {
+    }                                                                    //Encolar
+    //-------------------------------------------------------------------------------------------------------------------------------------------//
+public void encolar(NodoC x) {
 
         if (esVacia()) {
 
-            this.setFrente(aux);
+            this.setFrente(x);
         }
         {
-            this.getUltimo().setAtras(aux);
+            this.getUltimo().setAtras(x);
         }
-        this.setUltimo(aux);
-    }
+        this.setUltimo(x);
+    }                                                                 //Desencolar
+    //-------------------------------------------------------------------------------------------------------------------------------------------//
 
-    public NodoC antender() {
-        NodoC aux = this.getFrente();
+
+}
+
+
+
+
+
+/*
+    public NodoC antender(NodoC aux) {
+       
         if (frente != null) {
             frente = frente.getAtras();
             aux.setAtras(null);
@@ -76,14 +66,14 @@ public class Cola {
 
     }
 
-    public String antenderStr() {
+    public Paciente antenderStr() {
         NodoC aux = this.getFrente();
         if (frente != null) {
-            frente = frente.getAtras();
+            frente = frente.getAtras(); 
             aux.setAtras(null);
         }
         if (aux != null)
-            return aux.getDato();
+            return aux.getDatos();
         else
             return null;
     }
@@ -92,10 +82,8 @@ public class Cola {
         String buffer = "";
         NodoC aux = frente;
         while (aux != null) {
-            buffer = buffer + aux.getDato() + "\n";
+            buffer = buffer + aux.getDatos() + "\n";
             aux = aux.getAtras();
         }
-        return buffer;
-    }
-
-}
+        return buffer;*/
+    

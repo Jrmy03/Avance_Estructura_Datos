@@ -1,19 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
+
+
 
 package av.avance_1;
 
-/**
- *
- * @author Usuario
- */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Avance_1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello Mundo!");
-        System.out.print("Hola git");
-         System.out.print("Hola git");
+        //Definimos una variable de tipo String
+        String tiempo;
+        
+        
+         // Obtener la fecha y hora actual
+         LocalDateTime now = LocalDateTime.now();
+         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+         tiempo = now.format(formato);
+         System.out.println( tiempo); 
+         
+         
         
     }
 }
+
+
+
+   
+  

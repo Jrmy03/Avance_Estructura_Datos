@@ -1,41 +1,34 @@
 package av.avance_1;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author Usuario
- */
 public class NodoC {
     
-    private String dato;
+    private Paciente datos;
     private NodoC atras;
 
     public NodoC() {
     }
 
-    public String getDato() {
-        return dato;
+    public Paciente getDatos() {
+        return datos;
     }
 
     public NodoC getAtras() {
         return atras;
     }
 
-    public void setDato(String dato) {
-        this.dato = dato;
+    public void setDatos(Paciente datos) {
+        this.datos = datos;
     }
 
     public void setAtras(NodoC atras) {
         this.atras = atras;
-    }
+    }                                                    //Override
+    //------------------------------------------------------------------------------------------------------------------------//
 
     @Override
     public String toString() {
-        return "NodoC{" + "dato=" + dato + ", atras=" + atras + '}';
+        return "NodoC{" + "dato=" + datos + ", atras=" + atras + '}';
     }
     
     

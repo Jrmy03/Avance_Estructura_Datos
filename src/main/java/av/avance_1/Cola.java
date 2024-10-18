@@ -46,8 +46,25 @@ public void encolar(NodoC paciente) {
         }
         this.setUltimo(paciente);
     }                                                                 //Desencolar
-    //-------------------------------------------------------------------------------------------------------------------------------------------//
+   
+//-------------------------------------------------------------------------------------------------------------------------------------------//
+public NodoC desencolar() {
+        if (esVacia()) { // Mesaje y devolvemos porque la cola esta vacía
+            return null;
+        }
+        NodoC aux = this.getFrente(); // almacenar temporalmente el nodo, ya que es el que descolaremos
+        this.setFrente(this.getFrente().getAtras()); // se mueve el puntero atras
+        // si descoloamos y queda vacio el frente, se actualiza el ultimo nodo a null
+        if (this.getFrente() == null) {
+            this.setUltimo(null); // Como en el encolar, eliminamos eliminamos la referencia hacial el otro nodo
+        }
+        // retornamos el nodo que estaba al frente
+        aux.setAtras(null);
+        return aux;
+    }
+
 }
+
 
 
 

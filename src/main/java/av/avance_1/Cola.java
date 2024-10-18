@@ -35,20 +35,18 @@ public class Cola {
         }
     }                                                                    //Encolar
     //-------------------------------------------------------------------------------------------------------------------------------------------//
-public void encolar(NodoC x) {
+public void encolar(NodoC paciente) {
 
         if (esVacia()) {
 
-            this.setFrente(x);
+            this.setFrente(paciente);
         }
         {
-            this.getUltimo().setAtras(x);
+            this.getUltimo().setAtras(paciente);
         }
-        this.setUltimo(x);
+        this.setUltimo(paciente);
     }                                                                 //Desencolar
     //-------------------------------------------------------------------------------------------------------------------------------------------//
-
-
 }
 
 

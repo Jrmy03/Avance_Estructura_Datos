@@ -1,6 +1,4 @@
-
 package av.avance_1;
-
 
 public class Cola {
 
@@ -35,7 +33,8 @@ public class Cola {
         }
     }                                                                    //Encolar
     //-------------------------------------------------------------------------------------------------------------------------------------------//
-public void encolar(NodoC paciente) {
+
+    public void encolar(NodoC paciente) {
 
         if (esVacia()) {
 
@@ -46,9 +45,9 @@ public void encolar(NodoC paciente) {
         }
         this.setUltimo(paciente);
     }                                                                 //Desencolar
-   
+
 //-------------------------------------------------------------------------------------------------------------------------------------------//
-public NodoC desencolar() {
+    public NodoC desencolar() {
         if (esVacia()) { // Mesaje y devolvemos porque la cola esta vacía
             return null;
         }
@@ -64,11 +63,6 @@ public NodoC desencolar() {
     }
 
 }
-
-
-
-
-
 
 /*
     public NodoC antender(NodoC aux) {
@@ -101,4 +95,3 @@ public NodoC desencolar() {
             aux = aux.getAtras();
         }
         return buffer;*/
-    

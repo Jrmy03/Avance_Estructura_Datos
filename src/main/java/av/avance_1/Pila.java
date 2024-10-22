@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package av.avance_1;
 
-/**
- *
- * @author Usuario
- */
+
 public class Pila {
 
         private NodoP top; // cima.
@@ -32,25 +26,14 @@ public class Pila {
             }
         }
 
-        public void push(String valor) {
-
-            // pao 0: crear el Dato. Solo cuando la pila almacena clases de usuario.
-            NodoP datoTemp = new NodoP();
-            datoTemp.setInfo(info);
-
-            // paso 1: Crear la cajita.
-            NodoP temp = new NodoP();
-
-            // paso 2: Le pongo un valor a la cajita.
-            temp.setInfo(datoTemp);
-
-            // 1. Escenario 1 cuando la pila esta vacía.
+        public void push(NodoP nuevoNodo) {
+                    // 1. Escenario 1 es cuando la pila esta vacia.
             if (esVacia()) {
-                top = temp;// Mueve el top (que antes estaba en null) a la nueva cajita creada.
+                top = nuevoNodo;// Mueve el top (que antes estaba en null) a la nueva cajita creada.
             } else {
                 // 2. Escenario 2 es cuando la pila no esta vacia.
-                temp.setAbajo(top);         // paso 2.1 Amarro la nueva caja al top.
-                top = temp;                     // paso 2,2 muevo el top a la nueva caja.
+                nuevoNodo.setAbajo(top); // paso 2.1 Amarro la nueva caja al top.
+                top = nuevoNodo;              // paso 2,2 muevo el top a la nueva caja.
             }
 
         }
@@ -60,7 +43,7 @@ public class Pila {
                 top = top.getAbajo();// movemos el top al que esta despues.
             }
         }
-
+/*                                                                 
         public String popRetorno() {
             NodoP nodoRetornar = new NodoP();
             if (!esVacia()) {  // Si no esta vacia haga pop.
@@ -68,24 +51,12 @@ public class Pila {
 
                 top = top.getAbajo();// movemos el top al que esta despues.
             }
-            return nodoRetornar.getInfo().getnombre();
-        }
+            return nodoRetornar.getQuejas().getnombre();
+        }*/
 
-        /**
-         *
-         * @return
-         */
-        public String toString() {
-            String buffer = "";
-            if (!esVacia()) {
-
-                NodoP temp = top;
-                while (temp != null) {
-                    buffer = buffer + temp.getInfo().getnombre() + "\n";
-                    temp = temp.getAbajo();
-                }
-            }
-            return buffer;
-        }
+        
+            
+            
+        
     }
 

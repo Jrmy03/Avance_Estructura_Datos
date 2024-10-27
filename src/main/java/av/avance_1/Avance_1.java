@@ -13,20 +13,7 @@ public class Avance_1 {
     
     public static void main(String[] args) {
         
-        System.out.println("¡Bienvenido al sistema de gestión de pacientes!");
-
-        int opcion;
-
-        do {
-            System.out.println("\nMenú Principal:");
-            System.out.println("1. Gestionar llegada de pacientes");
-            System.out.println("2. Ayuda");
-            System.out.println("3. Salir");
-            System.out.print("Seleccionar una opcion");
-            
-
-            
-    
+      
         //Constructores
         Terminal opciones = new Terminal();
         PilaQuejas Quejas = new PilaQuejas();

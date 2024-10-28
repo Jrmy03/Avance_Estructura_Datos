@@ -5,23 +5,36 @@ import java.util.Scanner;
 
 public class Terminal {
     
-    public int escanear() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();}
-    
-    public void seleccionarOpcionMenu0(){
-        
-        System.out.println("Bienvenido a 'nombre del hospital'. Seleccione la opción que desea:\n\n1. Gestionar Llegada "
-                        + "de Pacientes\n2. Ayuda\n3. Salir");
-        escanear();
+     Scanner scanner = new Scanner(System.in);
+     
+public int escanear() {
+        int numero = scanner.nextInt();
+        return numero;
     }
+    
+
+public void gestionarLlegadaPacientes() {
+        System.out.println("Seleccione la opción que desea:\n\n1. Gestionar Llegada "
+                + "de Pacientes\n2. Ayuda\n3. Salir");
+
+        int seleccion = escanear(); 
+        seleccionarOpcionMenu1(seleccion); 
+}
+    private void gestionarLlegadaPacientes2() {
+        System.out.println("1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
+                + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar");
+
+        int seleccion = escanear(); 
+        seleccionarOpcionMenu2(seleccion); 
+    }
+        
+    
 
     
     public void seleccionarOpcionMenu1(int select) {
         switch (select) {
             case 1:
-                System.out.println("1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes." + ""
-                        + "\n4. Mostrar Fichas Pendientes. +\n5. Mostrar Quejas recibidas\n6. Regresar");
+                gestionarLlegadaPacientes2();
                 break;
             case 2:
                 System.out.println("Apache NetBeans IDE.20. Avance 1 V 1.0.0.");
@@ -33,6 +46,7 @@ public class Terminal {
             default:
                 System.out.println("Opción no válida. Por favor intenta de nuevo. Seleccione la opción que desea:\n\n1. Gestionar Llegada "
                         + "de Pacientes\n2. Ayuda\n3. Salir");
+                seleccionarOpcionMenu1(escanear());
         }
 
     }
@@ -55,16 +69,16 @@ public class Terminal {
                 System.out.println("Mostrar Quejas recibidas");
                 break;
             case 6:
-                System.out.println("Regresar");
-                seleccionarOpcionMenu0();
-                escanear();
+                gestionarLlegadaPacientes();
+                break;
                 
             default:
                 System.out.println("Opción no válida. Por favor intenta de nuevo. 1. Seleccionar Ficha\n2. Atender Paciente."+
                         "\n3. Abandonar Cola de Pacientes." + "\n4. Mostrar Fichas Pendientes. +\n5. Mostrar Quejas "+
                         "recibidas\n6. Regresar");
-
+                seleccionarOpcionMenu2(escanear());
         }
     }
 }
+
 

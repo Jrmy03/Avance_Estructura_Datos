@@ -8,15 +8,20 @@ public class Avance_1 {
 
     
     
-            
-    static Cola_de_pacientes_preferenciales cp = new Cola_de_pacientes_preferenciales();
+    static Cola_de_pacientes_regulares pr = new Cola_de_pacientes_regulares();        
+    static Cola_de_pacientes_preferenciales pp = new Cola_de_pacientes_preferenciales();
     static final Scanner scanner = new Scanner(System.in);
 
-   public static void Asignardatos() {
+   public static void AsignardatosP() {
         String cedula = "123456789";
         String nombre = "Nombre del Paciente";
-        cp.asignarFichaPreferencial(cedula, nombre);
-
+        pp.asignarFichaPreferencial(cedula, nombre);
+   }
+   
+   public static void AsignardatosR() {
+        String cedula = "123456789";
+        String nombre = "Nombre del Paciente";
+        pr.asignarFichaRegulares(cedula, nombre);
    }
     
     
@@ -61,21 +66,26 @@ public class Avance_1 {
                 System.out.println("\nSeleccionar Ficha:\n\n1) Preferencial\n2) Regular\n");
                 int numero = escanear();
                 if (numero == 1) {
-                    System.out.println("Usted es preferencial");
-                    Asignardatos();
-                   
+                    
+                    AsignardatosP();
+                   System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
+                        + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
+                seleccionarOpcionMenu2(escanear());
                 }
 
                 if (numero== 2) {
-                    System.out.println("Usted es Regular");
                     
+                    AsignardatosR();
+                   System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
+                        + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
+                seleccionarOpcionMenu2(escanear());
                 } if (numero !=1 && numero != 2) {
                     System.out.println("\nOpción no válida. Por favor intenta de nuevo.\n");
                     
                     seleccionarOpcionMenu2(1);
                     
                  }
-                break;
+                
          
     
 

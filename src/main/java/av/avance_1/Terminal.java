@@ -10,18 +10,16 @@ public class Terminal {
 
     public static int escanear() {
         System.out.print("Ingrese una opción: ");
-        while (!scanner.hasNextInt()) { //
+        while (!scanner.hasNextInt()) { 
             System.out.println("Entrada inválida. Por favor ingrese un número.");
-
+        scanner.next();
         }
         return scanner.nextInt();
     }
 
-    public static void cerrarescanear() {
-        scanner.close();
-    }
+    
 
-    // Primer menú de opciones
+   
     public static void seleccionarOpcionMenu1(int select) {
 
         switch (select) {
@@ -44,7 +42,7 @@ public class Terminal {
         }
     }
 
-    // Segundo menú de opciones
+ 
     public static void seleccionarOpcionMenu2(int select) {
         switch (select) {
             case 1:
@@ -52,19 +50,19 @@ public class Terminal {
                 int numero = escanear();
                 if (numero == 1) {
                     System.out.println("Usted es preferencial");
-                    cerrarescanear();
+                    
                 }
 
-                if (numero == 2) {
+                if (numero== 2) {
                     System.out.println("Usted es preferencial");
-                    cerrarescanear();
-                } else if (numero != 1 || numero != 2) {
+                    
+                } if (numero !=1 && numero != 2) {
                     System.out.println("\nOpción no válida. Por favor intenta de nuevo.\n");
-                    cerrarescanear();
+                    
                     seleccionarOpcionMenu2(1);
                     
                  }
-                
+                break;
         
     
 
@@ -94,7 +92,5 @@ public class Terminal {
         }
     }
 }
-
-
 
 

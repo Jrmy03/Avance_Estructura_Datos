@@ -8,10 +8,14 @@ public class Avance_1 {
 
     
     
-    static Cola_de_pacientes_regulares pr = new Cola_de_pacientes_regulares();        
+    static Cola_de_pacientes_regulares pr = new Cola_de_pacientes_regulares();
     static Cola_de_pacientes_preferenciales pp = new Cola_de_pacientes_preferenciales();
     static final Scanner scanner = new Scanner(System.in);
-
+    static PilaQuejas pilaDeQuejas = new PilaQuejas();
+    
+    
+    
+    
    public static void AsignardatosP() {
         String cedula = "123456789";
         String nombre = "Nombre del Paciente";
@@ -34,7 +38,25 @@ public class Avance_1 {
         return scanner.nextInt();
     }
 
+    public static void mostrarFichasPendientes() {
     
+    System.out.println("Fichas Preferenciales:");
+    NodoC nodoPreferencial = pp.getFrente(); 
+    while (nodoPreferencial != null) {
+        Paciente paciente = (Paciente) nodoPreferencial.getDatos();
+        System.out.println("Ficha: " + paciente.getNúmero_de_ficha() + " - Nombre: " + paciente.getNombre_del_Paciente());
+        nodoPreferencial = nodoPreferencial.getAtras();
+    }
+
+    
+    System.out.println("Fichas Regulares:");
+    NodoC nodoRegular = pr.getFrente(); 
+    while (nodoRegular != null) {
+        Paciente paciente = (Paciente) nodoRegular.getDatos();
+        System.out.println("Ficha: " + paciente.getNúmero_de_ficha() + " - Nombre: " + paciente.getNombre_del_Paciente());
+        nodoRegular = nodoRegular.getAtras();
+    }
+}
 
    
     public static void seleccionarOpcionMenu1(int select) {
@@ -61,42 +83,41 @@ public class Avance_1 {
 
  
     public static void seleccionarOpcionMenu2(int select) {
+        
         switch (select) {
             case 1:
                 System.out.println("\nSeleccionar Ficha:\n\n1) Preferencial\n2) Regular\n");
-                int numero = escanear();
-                if (numero == 1) {
-                    
-                    AsignardatosP();
-                   System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
-                        + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
-                seleccionarOpcionMenu2(escanear());
-                }
-
-                if (numero== 2) {
-                    
-                    AsignardatosR();
-                   System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
-                        + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
-                seleccionarOpcionMenu2(escanear());
-                } if (numero !=1 && numero != 2) {
-                    System.out.println("\nOpción no válida. Por favor intenta de nuevo.\n");
-                    
-                    seleccionarOpcionMenu2(1);
-                    
-                 }
-                
-         
-    
+        int numero = escanear();
+        
+        if (numero == 1) {
+            AsignardatosP();
+            System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
+                    + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
+            seleccionarOpcionMenu2(escanear());
+            break;
+        } else if (numero == 2) {
+            AsignardatosR();
+            System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
+                    + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
+            seleccionarOpcionMenu2(escanear());
+            break;
+        } else {
+            System.out.println("\nOpción no válida. Por favor intenta de nuevo.\n");
+            seleccionarOpcionMenu2(1);
+            break;
+        }
+                 
 
             case 2:
-                System.out.println("Atender Paciente.");
+                System.out.println("Atender Paciente");
+                
                 break;
             case 3:
                 System.out.println("Abandonar Cola de Pacientes.");
                 break;
             case 4:
                 System.out.println("Mostrar Fichas Pendientes.");
+                mostrarFichasPendientes();
                 break;
             case 5:
                 System.out.println("Mostrar Quejas recibidas.");

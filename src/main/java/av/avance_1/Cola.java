@@ -34,64 +34,35 @@ public class Cola {
     }                                                                    //Encolar
     //-------------------------------------------------------------------------------------------------------------------------------------------//
 
-    public void encolar(NodoC paciente) {
-
+     public void encolar(NodoC nuevoNodo) {
         if (esVacia()) {
-
-            this.setFrente(paciente);
+            frente = nuevoNodo;
+            ultimo = nuevoNodo;
+        } else {
+            ultimo.setAtras(nuevoNodo);
+            ultimo = nuevoNodo;
         }
-        {
-            this.getUltimo().setAtras(paciente);
-        }
-        this.setUltimo(paciente);
-    }                                                                 //Desencolar
+    }                                                      //Desencolar
 
 //-------------------------------------------------------------------------------------------------------------------------------------------//
     public NodoC desencolar() {
-        if (esVacia()) { // Mesaje y devolvemos porque la cola esta vacía
+        if (esVacia()) {
             return null;
         }
-        NodoC aux = this.getFrente(); // almacenar temporalmente el nodo, ya que es el que descolaremos
-        this.setFrente(this.getFrente().getAtras()); // se mueve el puntero atras
-        // si descoloamos y queda vacio el frente, se actualiza el ultimo nodo a null
-        if (this.getFrente() == null) {
-            this.setUltimo(null); // Como en el encolar, eliminamos eliminamos la referencia hacial el otro nodo
+
+        NodoC nodo = frente;
+        frente = frente.getAtras();
+
+        if (frente == null) {
+            ultimo = null;
         }
-        // retornamos el nodo que estaba al frente
-        aux.setAtras(null);
-        return aux;
+
+        nodo.setAtras(null); 
+        return nodo;
     }
+    public NodoC verFrente() {
+        return frente;
+    }
+
 
 }
-
-/*
-    public NodoC antender(NodoC aux) {
-       
-        if (frente != null) {
-            frente = frente.getAtras();
-            aux.setAtras(null);
-        }
-        return aux;
-
-    }
-
-    public Paciente antenderStr() {
-        NodoC aux = this.getFrente();
-        if (frente != null) {
-            frente = frente.getAtras(); 
-            aux.setAtras(null);
-        }
-        if (aux != null)
-            return aux.getDatos();
-        else
-            return null;
-    }
-
-    public String toString() {
-        String buffer = "";
-        NodoC aux = frente;
-        while (aux != null) {
-            buffer = buffer + aux.getDatos() + "\n";
-            aux = aux.getAtras();
-        }
-        return buffer;*/

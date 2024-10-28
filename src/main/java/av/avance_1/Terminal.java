@@ -51,10 +51,11 @@ public class Terminal {
                 if (numero == 1) {
                     System.out.println("Usted es preferencial");
                     
+                    
                 }
 
                 if (numero== 2) {
-                    System.out.println("Usted es preferencial");
+                    System.out.println("Usted es Regular");
                     
                 } if (numero !=1 && numero != 2) {
                     System.out.println("\nOpción no válida. Por favor intenta de nuevo.\n");

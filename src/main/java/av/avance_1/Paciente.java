@@ -10,6 +10,15 @@ public class Paciente {
     public Paciente() {
     }
 
+    public Paciente(String Timestamp, String Nombre_del_Paciente, String Número_de_Cedula_del_Paciente, String Número_de_ficha) {
+        this.Timestamp = Timestamp;
+        this.Nombre_del_Paciente = Nombre_del_Paciente;
+        this.Número_de_Cedula_del_Paciente = Número_de_Cedula_del_Paciente;
+        this.Número_de_ficha = Número_de_ficha;
+    }
+    
+    
+
     public String getTimestamp() {
         return Timestamp;
     }

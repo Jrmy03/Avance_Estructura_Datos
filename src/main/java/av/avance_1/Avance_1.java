@@ -6,18 +6,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Avance_1 {
 
+    
     public static void main(String[] args) {
+        System.out.println("Bienvenido a 'nombre del hospital'. Seleccione la opción que desea:\n\n"
+                + "1. Gestionar Llegada de Pacientes\n2. Ayuda\n3. Salir\n");
 
-        int numero;
-        //Constructores
-        Terminal opciones = new Terminal();
-        PilaQuejas Quejas = new PilaQuejas();
-        Cola_de_pacientes_preferenciales preferenciales = new Cola_de_pacientes_preferenciales();
-        Cola_de_pacientes_regulares regulares = new Cola_de_pacientes_regulares();
-
-        System.out.println("Bienvenido a 'nombre del hospital'");
-        opciones.gestionarLlegadaPacientes();
-
+        int numero = Terminal.escanear();
+        Terminal.seleccionarOpcionMenu1(numero);
     }
-
 }

@@ -121,6 +121,7 @@ public class Avance_1 {
                 break;
             case 5:
                 System.out.println("Mostrar Quejas recibidas.");
+                  pilaDeQuejas.listarQuejas();
                 break;
             case 6:
                 System.out.println("\n1. Gestionar Llegada de Pacientes\n2. Ayuda\n3. Salir\n");

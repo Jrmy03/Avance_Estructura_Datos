@@ -6,15 +6,14 @@ public class PilaQuejas extends Pila {
     }
 
     public void listarQuejas() {
-        listarQuejasRecursivo(getTop());
-    }
-// Con el metodo recursivo imprimirá cada queja en la pila sin modificarla
-    private void listarQuejasRecursivo(NodoP nodo) {
-
-        if (nodo != null) {
-            System.out.println(nodo.getQuejas());
-            listarQuejasRecursivo(nodo.getAbajo());
+        NodoP aux = getTop();
+        if (aux == null) {
+            System.out.println("No hay quejas registradas.");
+        } else {
+            while (aux != null) {
+                System.out.println(aux.getQuejas());
+                aux = aux.getAbajo();
+            }
         }
-
     }
 }

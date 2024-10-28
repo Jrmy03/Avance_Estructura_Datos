@@ -43,15 +43,7 @@ public class Pila {
                 top = top.getAbajo();// movemos el top al que esta despues.
             }
         }
-                /*                                                
-        public String popRetorno(NodoP nodoRetornar) {
-            if (!esVacia()) {  // Si no esta vacia haga pop.
-                nodoRetornar = top;
-
-                top = top.getAbajo();// movemos el top al que esta despues.
-            }
-            return nodoRetornar.getQuejas();
-        */
+            
 
         
             

@@ -113,5 +113,76 @@ public class Cola {
         return frente;
     }
 
+    public NodoC[] buscarNodo(String ficha) {
+    NodoC anterior = null;
+    NodoC actual = frente;
+
+    while (actual != null) {
+        Paciente paciente = (Paciente) actual.getDatos();
+        if (paciente.getNúmero_de_ficha().equals(ficha)) {
+            return new NodoC[] { anterior, actual };
+        }
+        anterior = actual; 
+        actual = actual.getAtras(); 
+    }
+
+    return new NodoC[] { null, null }; 
+}
+    public void eliminarNodo(String ficha) {
+    NodoC[] resultado = buscarNodo(ficha);
+    NodoC anterior = resultado[0];
+    NodoC actual = resultado[1];
+
+    if (actual == null) {
+        System.out.println("No se encontró el nodo con la ficha: " + ficha);
+        return; 
+    }
+
+    if (anterior == null) {
+        
+        desencolar(); 
+    } else {
+        
+        anterior.setAtras(actual.getAtras()); 
+        if (actual == ultimo) {
+            ultimo = anterior; 
+        }
+    }
+
+    System.out.println("Nodo con ficha " + ficha + " eliminado.");
+}
+
+public boolean eliminarNodoEspecifico(String numeroFicha) {
+    NodoC anterior = null;
+    NodoC actual = frente;
+
+    while (actual != null) {
+        Paciente paciente = (Paciente) actual.getDatos();
+        if (paciente.getNúmero_de_ficha().equals(numeroFicha)) {
+            if (anterior == null) {
+                
+                frente = actual.getAtras();
+            } else {
+                
+                anterior.setAtras(actual.getAtras());
+            }
+            
+            if (actual == ultimo) {
+                ultimo = anterior;
+            }
+            return true; // Nodo eliminado
+        }
+        anterior = actual;
+        actual = actual.getAtras();
+    }
+    return false; // Nodo no encontrado
+}
+
+
+
 
 }
+
+    
+    
+

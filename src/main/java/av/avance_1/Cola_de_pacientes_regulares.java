@@ -6,9 +6,8 @@ import java.util.Date;
  * Gestiona la asignación de fichas regulares a pacientes y los encola en la cola regular.
  * Cada ficha regular comienza con la letra "R" seguida de un número secuencial.
  * 
- * @author 
- * Jeremy Emmanuel Lorente Cerdas
- * Antonio Jesus Lopez Chacon
+ * @author  Jeremy Emmanuel Lorente Cerdas
+ * @author Antonio Jesus Lopez Chacon
  */
 
 public class Cola_de_pacientes_regulares extends Cola {

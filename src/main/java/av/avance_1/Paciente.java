@@ -1,7 +1,15 @@
 
 package av.avance_1;
 
-
+ /**
+     * Constructor de la clase Paciente con parámetros.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author Antonio Jesús López Chacón
+     * @param Timestamp                  La fecha y hora de registro del paciente.
+     * @param Nombre_del_Paciente        El nombre del paciente.
+     * @param Número_de_Cedula_del_Paciente El número de cédula del paciente.
+     * @param Número_de_ficha           El número de ficha asignado al paciente.
+     */
 public class Paciente {
     
     private String Timestamp, Nombre_del_Paciente,Número_de_Cedula_del_Paciente,Número_de_ficha;

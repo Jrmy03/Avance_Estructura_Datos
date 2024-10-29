@@ -6,9 +6,8 @@ import java.util.Date;
  * Gestiona la asignación de fichas preferenciales a pacientes y los encola en la cola preferencial.
  * Cada ficha preferencial comienza con la letra "P" seguida de un número secuencial.
  * 
- * @author 
- * Jeremy Emmanuel Lorente Cerdas
- * Antonio Jesus Lopez Chacon
+ * @author Jeremy Emmanuel Lorente Cerdas
+ * @author Antonio Jesus Lopez Chacon
  */
 public class Cola_de_pacientes_preferenciales extends Cola {
 

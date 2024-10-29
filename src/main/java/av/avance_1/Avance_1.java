@@ -3,7 +3,6 @@ package av.avance_1;
 import java.util.Scanner;
 
 
-
 public class Avance_1 {
 
     
@@ -15,18 +14,32 @@ private static int contador = 0;
     static final Scanner scanner = new Scanner(System.in);
     static PilaQuejas pilaDeQuejas = new PilaQuejas();
 
+     /**
+     * Asigna datos a un paciente preferencial.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author  Antonio Jesus Lopez Chacon
+     */
     public static void AsignardatosP() {
         String cedula = "123456789";
         String nombre = "Nombre del Paciente";
         pp.asignarFichaPreferencial(cedula, nombre);
     }
-
+/**
+     * Asigna datos a un paciente regulares.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author  Antonio Jesus Lopez Chacon
+     */
     public static void AsignardatosR() {
         String cedula = "123456789";
         String nombre = "Nombre del Paciente";
         pr.asignarFichaRegulares(cedula, nombre);
     }
-
+/**
+     * Escanea y valida la entrada de opciones en el menú.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author  Antonio Jesus Lopez Chacon
+     * @return La opción ingresada por el usuario.
+     */
     public static int escanear() {
         System.out.print("Ingrese una opción: ");
         while (!scanner.hasNextInt()) {
@@ -35,7 +48,9 @@ private static int contador = 0;
         }
         return scanner.nextInt();
     }
-
+/**
+     * Muestra las fichas de pacientes pendientes en las colas preferenciales y regulares.
+     */
     public static void mostrarFichasPendientes() {
 
         System.out.println("Fichas Preferenciales:");
@@ -54,7 +69,9 @@ private static int contador = 0;
             nodoRegular = nodoRegular.getAtras();
         }
     }
-
+/**
+     * Atiende a un paciente, priorizando los preferenciales cada dos turnos.
+     */
     public static void atenderPaciente() {
         if (pp.esVacia() && pr.esVacia()) {
             System.out.println("No hay pacientes en espera.");
@@ -89,7 +106,12 @@ private static int contador = 0;
                     + "Ficha #" + pacientePreferencial.getDatos().getNúmero_de_ficha());
         }
     }
-
+ /**
+     * Selecciona y ejecuta una opción del menú principal.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author  Antonio Jesus Lopez Chacon
+     * @param select La opción seleccionada en el menú principal.
+     */
     public static void seleccionarOpcionMenu1(int select) {
 
         switch (select) {
@@ -111,7 +133,12 @@ private static int contador = 0;
                 seleccionarOpcionMenu1(escanear());
         }
     }
-
+ /**
+     * Selecciona y ejecuta una opción del menú secundario de gestión de pacientes.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author  Antonio Jesus Lopez Chacon
+     * @param select La opción seleccionada en el menú secundario.
+     */
     public static void seleccionarOpcionMenu2(int select) {
 
         switch (select) {
@@ -182,7 +209,12 @@ private static int contador = 0;
         }
 
     }
-
+ /**
+     * Método principal que ejecuta el programa.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author  Antonio Jesus Lopez Chacon
+     * @param args Argumentos de línea de comandos (no se utilizan).
+     */
     public static void main(String[] args) {
 
         System.out.println("Bienvenido a Su Salud. Seleccione la opción que desea:\n\n"

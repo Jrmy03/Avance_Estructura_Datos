@@ -48,6 +48,7 @@ public class Cola {
     public NodoC desencolar() {
         if (esVacia()) {
             return null;
+            
         }
 
         NodoC nodo = frente;

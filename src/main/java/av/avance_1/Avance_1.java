@@ -8,6 +8,9 @@ public class Avance_1 {
 
     
     
+private static int contador = 0;
+    
+    
     static Cola_de_pacientes_regulares pr = new Cola_de_pacientes_regulares();
     static Cola_de_pacientes_preferenciales pp = new Cola_de_pacientes_preferenciales();
     static final Scanner scanner = new Scanner(System.in);
@@ -57,7 +60,50 @@ public class Avance_1 {
         nodoRegular = nodoRegular.getAtras();
     }
 }
+    
+    
 
+    
+public static void atenderPaciente() {
+    if (pp.esVacia() && pr.esVacia()) {
+        System.out.println("No hay pacientes en espera.");
+        return;
+    }
+
+    if (contador < 2 && !pp.esVacia()) {
+        NodoC pacientePreferencial = pp.desencolar();
+        System.out.println("Atendiendo paciente preferencial: "
+                + "Ficha #" + pacientePreferencial.getDatos().getNúmero_de_ficha());
+        contador++;
+        return;
+    }
+
+    if (contador == 2 || pp.esVacia()) {
+        if (!pr.esVacia()) {
+            NodoC pacienteRegular = pr.desencolar();
+            System.out.println("Atendiendo paciente regular: "
+                    + "Ficha #" + pacienteRegular.getDatos().getNúmero_de_ficha());
+            contador = 0;
+        }
+        return;
+    }
+
+    if (pp.esVacia() && !pr.esVacia()) {
+        NodoC pacienteRegular = pr.desencolar();
+        System.out.println("Atendiendo paciente regular: "
+                + "Ficha #" + pacienteRegular.getDatos().getNúmero_de_ficha());
+    } else if (!pp.esVacia() && pr.esVacia()) {
+        NodoC pacientePreferencial = pp.desencolar();
+        System.out.println("Atendiendo paciente preferencial: "
+                + "Ficha #" + pacientePreferencial.getDatos().getNúmero_de_ficha());
+    }
+}
+
+    
+        
+        
+        
+       
    
     public static void seleccionarOpcionMenu1(int select) {
 
@@ -109,15 +155,21 @@ public class Avance_1 {
                  
 
             case 2:
-                System.out.println("Atender Paciente");
                 
+                atenderPaciente();
+                System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
+                    + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
+                seleccionarOpcionMenu2(escanear());
                 break;
             case 3:
-                System.out.println("Abandonar Cola de Pacientes.");
+                System.out.println("Abandonar Cola de Pacientes");
                 break;
             case 4:
-                System.out.println("Mostrar Fichas Pendientes.");
+                
                 mostrarFichasPendientes();
+                System.out.println("\n1. Seleccionar Ficha\n2. Atender Paciente.\n3. Abandonar Cola de Pacientes."
+                    + "\n4. Mostrar Fichas Pendientes.\n5. Mostrar Quejas recibidas\n6. Regresar\n");
+            seleccionarOpcionMenu2(escanear()); 
                 break;
             case 5:
                 System.out.println("Mostrar Quejas recibidas.");

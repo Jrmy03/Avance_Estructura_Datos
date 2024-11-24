@@ -20,7 +20,7 @@ private static int contador = 0;
      * @author  Antonio Jesus Lopez Chacon
      */
     public static void AsignardatosP() {
-        String cedula = "123456789";
+        int cedula =0;
         String nombre = "Nombre del Paciente";
         pp.asignarFichaPreferencial(cedula, nombre);
     }
@@ -30,7 +30,7 @@ private static int contador = 0;
      * @author  Antonio Jesus Lopez Chacon
      */
     public static void AsignardatosR() {
-        String cedula = "123456789";
+         int cedula = 0;
         String nombre = "Nombre del Paciente";
         pr.asignarFichaRegulares(cedula, nombre);
     }

@@ -19,14 +19,14 @@ public class Cola_de_pacientes_preferenciales extends Cola {
     * @param Número_de_Cedula_del_Paciente Número de cédula del paciente.
     * @param Nombre_del_Paciente Nombre del paciente.
     */
-   public void asignarFichaPreferencial(String Número_de_Cedula_del_Paciente, String Nombre_del_Paciente){
+  public void asignarFichaPreferencial(int Número_de_Cedula_del_Paciente, String Nombre_del_Paciente){
         String Número_de_ficha = "P" + contador++;
         
         Paciente nuevoPaciente = new Paciente(
         new Date().toString(), 
-        Número_de_Cedula_del_Paciente, 
         Nombre_del_Paciente, 
-        Número_de_ficha);
+        Número_de_ficha,
+        Número_de_Cedula_del_Paciente);
         
         NodoC nuevoNodo = new NodoC();
         nuevoNodo.setDatos(nuevoPaciente);

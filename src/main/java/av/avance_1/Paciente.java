@@ -12,20 +12,19 @@ package av.avance_1;
      */
 public class Paciente {
     
-    private String Timestamp, Nombre_del_Paciente,Número_de_Cedula_del_Paciente,Número_de_ficha;
+   private String Timestamp, Nombre_del_Paciente,Número_de_ficha;
+    private int Número_de_Cedula_del_Paciente;
     
    
     public Paciente() {
     }
 
-    public Paciente(String Timestamp, String Nombre_del_Paciente, String Número_de_Cedula_del_Paciente, String Número_de_ficha) {
+    public Paciente(String Timestamp, String Nombre_del_Paciente, String Número_de_ficha, int Número_de_Cedula_del_Paciente) {
         this.Timestamp = Timestamp;
         this.Nombre_del_Paciente = Nombre_del_Paciente;
-        this.Número_de_Cedula_del_Paciente = Número_de_Cedula_del_Paciente;
         this.Número_de_ficha = Número_de_ficha;
+        this.Número_de_Cedula_del_Paciente = Número_de_Cedula_del_Paciente;
     }
-    
-    
 
     public String getTimestamp() {
         return Timestamp;
@@ -35,12 +34,12 @@ public class Paciente {
         return Nombre_del_Paciente;
     }
 
-    public String getNúmero_de_Cedula_del_Paciente() {
-        return Número_de_Cedula_del_Paciente;
-    }
-
     public String getNúmero_de_ficha() {
         return Número_de_ficha;
+    }
+
+    public int getNúmero_de_Cedula_del_Paciente() {
+        return Número_de_Cedula_del_Paciente;
     }
 
     public void setTimestamp(String Timestamp) {
@@ -51,15 +50,12 @@ public class Paciente {
         this.Nombre_del_Paciente = Nombre_del_Paciente;
     }
 
-    public void setNúmero_de_Cedula_del_Paciente(String Número_de_Cedula_del_Paciente) {
-        this.Número_de_Cedula_del_Paciente = Número_de_Cedula_del_Paciente;
-    }
-
     public void setNúmero_de_ficha(String Número_de_ficha) {
         this.Número_de_ficha = Número_de_ficha;
     }
 
-    
+    public void setNúmero_de_Cedula_del_Paciente(int Número_de_Cedula_del_Paciente) {
+        this.Número_de_Cedula_del_Paciente = Número_de_Cedula_del_Paciente;
+    }
 
-    
 }

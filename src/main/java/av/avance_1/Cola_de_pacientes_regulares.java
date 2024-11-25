@@ -32,6 +32,6 @@ public class Cola_de_pacientes_regulares extends Cola {
         NodoC nuevoNodo = new NodoC();
         nuevoNodo.setDatos(nuevoPaciente);
         encolar(nuevoNodo);
-        System.out.println("Su número de ficha es: " + Número_de_ficha);
+        System.out.println("Su número de ficha es la " + Número_de_ficha);
    }
 }

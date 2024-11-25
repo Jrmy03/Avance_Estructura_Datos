@@ -5,7 +5,12 @@ import java.util.Scanner;
 
 public class Avance_1 {
 
-    
+    /**
+     * Escanea y valida la entrada de opciones en el menú.
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author  Antonio Jesus Lopez Chacon
+     * @return La opción ingresada por el usuario.
+     */
     
 private static int contador = 0;
 

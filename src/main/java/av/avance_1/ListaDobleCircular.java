@@ -64,7 +64,22 @@ public class ListaDobleCircular {
             return -1; // Devuelve un valor especial o lanza una excepción personalizada si prefieres
         }
     }
+public NodoC buscarPorCedula(String cedula) {
+    if (cabeza == null) {
+        return null; 
+    }
 
+    NodoC aux = cabeza;
+    do {
+        if (aux.getDatos().getNúmero_de_Cedula_del_Paciente().equals(cedula)) {
+            return aux; 
+        }
+        aux = aux.getSiguiente();
+    } while (aux != cabeza);
+
+    return null; 
+}
+    
     @Override
     public String toString() {
         String respuesta = "Lista doble circular: \n";

@@ -1,6 +1,12 @@
 package av.avance_1;
 
-
+/**
+ * Clase que representa una pila específica para el manejo de quejas.
+ * Extiende la funcionalidad de la clase base 
+ * 
+ * @author Jeremy Emmanuel Lorente Cerdas
+ * @author Antonio Jesus Lopez Chacon
+ */
 public class PilaQuejas extends Pila {
 
     public PilaQuejas() {

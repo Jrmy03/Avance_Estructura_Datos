@@ -4,7 +4,13 @@ package av.avance_1;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
+/**
+ * Clase principal para gestionar el sistema de atención a pacientes.
+ * Incluye funcionalidades para asignar fichas, atender pacientes, y gestionar quejas.
+ * 
+ * @author Jeremy Emmanuel Lorente Cerdas
+ * @author Antonio Jesus Lopez Chacon
+ */
 
 public class Avance_1 {
 
@@ -25,7 +31,9 @@ public class Avance_1 {
 
     static ListaDobleCircular exped = new ListaDobleCircular();
     
-
+public static void imprimirclase(){
+    
+}
     
     
     
@@ -97,35 +105,39 @@ public class Avance_1 {
      */
     public static void guardardatosR() {
         //Cedula
-        String cedula= "";
-        while (cedula.trim().isEmpty()){
+        String cedula = "";
         System.out.println("Cédula:");
-        cedula = lector.nextLine();
+        while (cedula.trim().isEmpty()) {
+            cedula = lector.nextLine();
         }
-        //Nombre
+
         String nombre = "";
-        while (nombre.trim().isEmpty()){
         System.out.println("Nombre del Paciente:");
-        nombre = lector.nextLine();
-        //edad
-    }   int edad =lector.nextInt();
-        System.out.println("edad:");
+        while (nombre.trim().isEmpty()) {
+            nombre = lector.nextLine();
+        }
+
+        int edad = 0;
+        System.out.println("Edad:");
         while (!lector.hasNextInt()) {
             System.out.println("Entrada inválida. Por favor ingrese su edad:");
-            edad =lector.nextInt();
-        }//Genero
+            lector.next();
+        }
+        edad = lector.nextInt();
+
+        String Genero = "";
         System.out.println("Género:\n\n1. Hombre\n2. Mujer\n");
-        String Genero="";
-        int opcion= lector.nextInt();
+        int opcion = lector.nextInt();
         while (opcion != 1 && opcion != 2) {
             System.out.println("Género:\n\n1. Hombre\n2. Mujer\n");
-            opcion= lector.nextInt();
-        if (opcion ==  1){
+            opcion = lector.nextInt();
+        }
+        if (opcion == 1) {
             Genero = "Hombre";
-        }if (opcion ==  2){
-            Genero = "Hombre";
-    }
-}
+        } else if (opcion == 2) {
+            Genero = "Mujer";
+        }
+        
         LocalDateTime fechaHoraLlegada = LocalDateTime.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String horaDeLlegada = fechaHoraLlegada.format(formato);
@@ -287,9 +299,91 @@ public class Avance_1 {
                     }
                 }
             case 2:
-                atenderPaciente();
+                /**
+ * Atiende a un paciente, registrando detalles de su consulta médica.
+ * 
+ * El proceso incluye:
+ * <ul>
+ *   <li>Obtener los datos del paciente desde el nodo actual.</li>
+ *   <li>Registrar al paciente en la bitácora del día.</li>
+ *   <li>Verificar si el paciente tiene un expediente existente o si es su primera consulta.</li>
+ *   <li>Solicitar al usuario detalles adicionales de la consulta, como diagnóstico y medicamentos recetados.</li>
+ * </ul>
+ * 
+ * @author Jeremy Emmanuel Lorente Cerdas
+ * @author Antonio Jesus Lopez Chacon
+ */
+                
+        atenderPaciente();
+                if (pp.esVacia() && pr.esVacia()) {
+        System.out.println("No hay pacientes en espera.");
+        return;
+    }
+
+    NodoC nodoPaciente;
+    if (contador < 2 && !pp.esVacia()) {
+        nodoPaciente = pp.desencolar();
+        contador++;
+    } else {
+        nodoPaciente = pr.desencolar();
+        contador = 0;
+    }
+
+    if (nodoPaciente == null) {
+        System.out.println("Error al obtener el paciente.");
+        return;
+    }
+   Paciente paciente = (Paciente) nodoPaciente.getDatos();
+    bitacoraDia.encolar(nodoPaciente);
+    
+     System.out.println("Atendiendo al paciente: " + paciente.getNombre_del_Paciente());
+    NodoC nodoExpediente = exped.buscarPorCedula(paciente.getNúmero_de_Cedula_del_Paciente());
+
+    if (nodoExpediente == null) {
+        
+        System.out.println("Paciente " + paciente.getNombre_del_Paciente() + " asiste a consulta por primera vez.");
+
+      
+        System.out.println("Ingrese los detalles adicionales del paciente:");
+        System.out.println("Diagnóstico:");
+        lector.nextLine(); 
+        String diagnostico = lector.nextLine();
+        System.out.println("Medicamentos recetados:");
+        String medicamentos = lector.nextLine();
+
+        
+    } else {
+        
+        Paciente expediente = (Paciente) nodoExpediente.getDatos();
+        System.out.println("Datos del paciente:");
+        System.out.println("Cédula: " + expediente.getNúmero_de_Cedula_del_Paciente());
+        System.out.println("Nombre: " + expediente.getNombre_del_Paciente());
+        System.out.println("Edad: " + expediente.getEdad());
+        System.out.println("Género: " + expediente.getGenero());
+
+        
+        System.out.println("Ingrese los detalles de la cita actual:");
+        System.out.println("Diagnóstico:");
+        lector.nextLine(); 
+        String diagnostico = lector.nextLine();
+        System.out.println("Medicamentos recetados:");
+        String medicamentos = lector.nextLine();
+
+  
+    }
+
+   
+    LocalDateTime fechaCita = LocalDateTime.now();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String fechaCitaFormateada = fechaCita.format(formato);
+
+    System.out.println("Paciente " + paciente.getNombre_del_Paciente() + ", su cita ha concluido.");
+    
+
                 Menu2();
                 break;
+   
+                
             case 3:
                 System.out.print("Ingrese el número de ficha del paciente a eliminar: ");
                 String numeroFicha = lector.next();

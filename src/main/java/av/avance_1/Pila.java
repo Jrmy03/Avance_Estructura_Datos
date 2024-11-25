@@ -1,4 +1,5 @@
 package av.avance_1;
+
 /**
  * Clase Pila que representa una estructura de datos LIFO (Last In, First Out) utilizando nodos.
  * Proporciona métodos para apilar, desapilar y verificar el estado de la pila.

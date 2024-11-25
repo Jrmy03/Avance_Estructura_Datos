@@ -1,4 +1,5 @@
 package av.avance_1;
+
 /**
  * Clase Cola que representa una estructura de datos FIFO (First In, First Out) utilizando nodos.
  * Proporciona métodos para encolar, desencolar y verificar el estado de la cola.
@@ -170,16 +171,25 @@ public boolean eliminarNodoEspecifico(String numeroFicha) {
             if (actual == ultimo) {
                 ultimo = anterior;
             }
-            return true; // Nodo eliminado
+            return true; 
         }
         anterior = actual;
         actual = actual.getAtras();
     }
-    return false; // Nodo no encontrado
+    return false; 
 }
 
+  public void mostrarDatos(NodoC nodo) {
+      if (esVacia()) {
+          System.out.println("La Cola está vacía");
+          return;
+      }
+      System.out.println( nodo.getDatos());
+      
+  }
 
-
+ 
+  
 
 }
 

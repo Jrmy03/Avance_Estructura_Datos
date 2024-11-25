@@ -1,5 +1,6 @@
 package av.avance_1;
 
+
 /**
  * Clase NodoC que representa un nodo en una estructura de cola. Almacena datos
  * específicos del paciente y una referencia al siguiente nodo en la cola.

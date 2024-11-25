@@ -1,5 +1,6 @@
 
 package av.avance_1;
+
 /**
  * Clase NodoP que representa un nodo en una estructura de pila.
  * Almacena una queja y una referencia al nodo siguiente en la pila.

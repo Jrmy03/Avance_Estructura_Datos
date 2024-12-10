@@ -1,13 +1,13 @@
 package av.avance_1;
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 /**
- * Clase principal para gestionar el sistema de atención a pacientes.
- * Incluye funcionalidades para asignar fichas, atender pacientes, y gestionar quejas.
- * 
+ * Clase principal para gestionar el sistema de atención a pacientes. Incluye
+ * funcionalidades para asignar fichas, atender pacientes, y gestionar quejas.
+ *
  * @author Jeremy Emmanuel Lorente Cerdas
  * @author Antonio Jesus Lopez Chacon
  */
@@ -16,36 +16,25 @@ public class Avance_1 {
 
     /**
      * Escanea y valida la entrada de opciones en el menú.
+     *
      * @author Jeremy Emmanuel Lorente Cerdas
-     * @author  Antonio Jesus Lopez Chacon
+     * @author Antonio Jesus Lopez Chacon
      * @return La opción ingresada por el usuario.
      */
-    
-
     private static int contador = 0;
     static ColaPacientes pr = new ColaPacientes();
     static ColaPacientes pp = new ColaPacientes();
-    static ColaPacientes bitacoraDia= new ColaPacientes();
+    static ColaPacientes bitacoraDia = new ColaPacientes();
     static final Scanner lector = new Scanner(System.in);
     static PilaQuejas pilaDeQuejas = new PilaQuejas();
 
     static ListaDobleCircular exped = new ListaDobleCircular();
-    
-public static void imprimirclase(){
-    
-}
-    
-    
-    
-    
-    
-    
+
+    public static void imprimirclase() {
+
+    }
+
     //Public static void consultaBitacora
-    
-    
-    
-    
-    
     /**
      * Asigna datos a un paciente preferencial.
      *
@@ -53,7 +42,7 @@ public static void imprimirclase(){
      * @author Antonio Jesus Lopez Chacon
      */
     public static void guardardatosP() {
-        
+
         String cedula = "";
         System.out.println("Cédula:");
         while (cedula.trim().isEmpty()) {
@@ -86,15 +75,13 @@ public static void imprimirclase(){
         } else if (opcion == 2) {
             Genero = "Mujer";
         }
-        
+
         LocalDateTime fechaHoraLlegada = LocalDateTime.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String horaDeLlegada = fechaHoraLlegada.format(formato);
-        
-        
-        
-        pp.asignarFichaPreferencial(horaDeLlegada, nombre,Genero,cedula, edad);
-        
+
+        pp.asignarFichaPreferencial(horaDeLlegada, nombre, Genero, cedula, edad);
+
     }
 
     /**
@@ -137,17 +124,16 @@ public static void imprimirclase(){
         } else if (opcion == 2) {
             Genero = "Mujer";
         }
-        
+
         LocalDateTime fechaHoraLlegada = LocalDateTime.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String horaDeLlegada = fechaHoraLlegada.format(formato);
-        
-        
-        pr.asignarFichaRegulares(horaDeLlegada, nombre,Genero,cedula, edad);
- 
+
+        pr.asignarFichaRegulares(horaDeLlegada, nombre, Genero, cedula, edad);
+
     }
-    
-    public static void mostarBitacoraDia(){
+
+    public static void mostarBitacoraDia() {
         NodoC revisa = bitacoraDia.getFrente();
     }
 
@@ -174,14 +160,9 @@ public static void imprimirclase(){
         }
     }
 
-    
-    
-    
     /**
      * Atiende a un paciente, priorizando los preferenciales cada dos turnos.
      */
-    
-
     public static void atenderPaciente() {
         if (pp.esVacia() && pr.esVacia()) {
             System.out.println("No hay pacientes en espera.");
@@ -192,7 +173,7 @@ public static void imprimirclase(){
             NodoC pacientePreferencial = pp.desencolar();
             bitacoraDia.encolar(pacientePreferencial);
             System.out.println("Ficha #" + pacientePreferencial.getDatos().getNúmero_de_ficha() + " con cédula "
-                    + pacientePreferencial.getDatos().getNúmero_de_Cedula_del_Paciente()+" pasar a consulta médica.");   
+                    + pacientePreferencial.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
             contador++;
             return;
         }
@@ -202,7 +183,7 @@ public static void imprimirclase(){
                 NodoC pacienteRegular = pr.desencolar();
                 bitacoraDia.encolar(pacienteRegular);
                 System.out.println("Ficha #" + pacienteRegular.getDatos().getNúmero_de_ficha() + " con cédula "
-                        + pacienteRegular.getDatos().getNúmero_de_Cedula_del_Paciente()+" pasar a consulta médica.");
+                        + pacienteRegular.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
                 contador = 0;
             }
             return;
@@ -212,12 +193,12 @@ public static void imprimirclase(){
             NodoC pacienteRegular = pr.desencolar();
             bitacoraDia.encolar(pacienteRegular);
             System.out.println("Ficha #" + pacienteRegular.getDatos().getNúmero_de_ficha() + " con cédula "
-                    + pacienteRegular.getDatos().getNúmero_de_Cedula_del_Paciente()+" pasar a consulta médica.");
+                    + pacienteRegular.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
         } else if (!pp.esVacia() && pr.esVacia()) {
             NodoC pacientePreferencial = pp.desencolar();
             bitacoraDia.encolar(pacientePreferencial);
             System.out.println("Ficha #" + pacientePreferencial.getDatos().getNúmero_de_ficha() + " con cédula "
-                    + pacientePreferencial.getDatos().getNúmero_de_Cedula_del_Paciente()+" pasar a consulta médica.");
+                    + pacientePreferencial.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
         }
     }
 
@@ -236,10 +217,12 @@ public static void imprimirclase(){
         }
         return lector.nextInt();
     }
+
     /**
      * Selecciona y ejecuta una opción del menú principal.
+     *
      * @author Jeremy Emmanuel Lorente Cerdas
-     * @author  Antonio Jesus Lopez Chacon
+     * @author Antonio Jesus Lopez Chacon
      * @param escanear() La opción seleccionada en el menú principal.
      */
     public static void Menu1() {
@@ -264,10 +247,13 @@ public static void imprimirclase(){
                 Menu1();
         }
     }
-/**
-     * Selecciona y ejecuta una opción del menú secundario de gestión de pacientes.
+
+    /**
+     * Selecciona y ejecuta una opción del menú secundario de gestión de
+     * pacientes.
+     *
      * @author Jeremy Emmanuel Lorente Cerdas
-     * @author  Antonio Jesus Lopez Chacon
+     * @author Antonio Jesus Lopez Chacon
      * @param escanear() La opción seleccionada en el menú secundario.
      */
     public static void Menu2() {
@@ -300,101 +286,123 @@ public static void imprimirclase(){
                 }
             case 2:
                 /**
- * Atiende a un paciente, registrando detalles de su consulta médica.
- * 
- * El proceso incluye:
- * <ul>
- *   <li>Obtener los datos del paciente desde el nodo actual.</li>
- *   <li>Registrar al paciente en la bitácora del día.</li>
- *   <li>Verificar si el paciente tiene un expediente existente o si es su primera consulta.</li>
- *   <li>Solicitar al usuario detalles adicionales de la consulta, como diagnóstico y medicamentos recetados.</li>
- * </ul>
- * 
- * @author Jeremy Emmanuel Lorente Cerdas
- * @author Antonio Jesus Lopez Chacon
- */
-                
-        atenderPaciente();
+                 * Atiende a un paciente, registrando detalles de su consulta
+                 * médica.
+                 *
+                 * El proceso incluye:
+                 * <ul>
+                 * <li>Obtener los datos del paciente desde el nodo actual.</li>
+                 * <li>Registrar al paciente en la bitácora del día.</li>
+                 * <li>Verificar si el paciente tiene un expediente existente o
+                 * si es su primera consulta.</li>
+                 * <li>Solicitar al usuario detalles adicionales de la consulta,
+                 * como diagnóstico y medicamentos recetados.</li>
+                 * </ul>
+                 *
+                 * @author Jeremy Emmanuel Lorente Cerdas
+                 * @author Antonio Jesus Lopez Chacon
+                 */
+
+                atenderPaciente();
                 if (pp.esVacia() && pr.esVacia()) {
-        System.out.println("No hay pacientes en espera.");
-        return;
-    }
+                    System.out.println("No hay pacientes en espera.");
+                    return;
+                }
+// Variable para almacenar el nodo del paciente actual.
+                NodoC nodoPaciente;
 
-    NodoC nodoPaciente;
-    if (contador < 2 && !pp.esVacia()) {
-        nodoPaciente = pp.desencolar();
-        contador++;
-    } else {
-        nodoPaciente = pr.desencolar();
-        contador = 0;
-    }
+                // Alterna entre la cola prioritaria y la cola regular para la atención de pacientes.
+                if (contador < 2 && !pp.esVacia()) {
+                    nodoPaciente = pp.desencolar();
+                    contador++;
+                } else {
+                    nodoPaciente = pr.desencolar();
+                    contador = 0;
+                }
 
-    if (nodoPaciente == null) {
-        System.out.println("Error al obtener el paciente.");
-        return;
-    }
-   Paciente paciente = (Paciente) nodoPaciente.getDatos();
-    bitacoraDia.encolar(nodoPaciente);
-    
-     System.out.println("Atendiendo al paciente: " + paciente.getNombre_del_Paciente());
-    NodoC nodoExpediente = exped.buscarPorCedula(paciente.getNúmero_de_Cedula_del_Paciente());
+                // Verifica que el nodo del paciente no sea nulo.
+                if (nodoPaciente == null) {
+                    System.out.println("Error al obtener el paciente.");
+                    return;
+                }
 
-    if (nodoExpediente == null) {
-        
-        System.out.println("Paciente " + paciente.getNombre_del_Paciente() + " asiste a consulta por primera vez.");
+                // Obtiene los datos del paciente del nodo.
+                Paciente paciente = (Paciente) nodoPaciente.getDatos();
 
-      
-        System.out.println("Ingrese los detalles adicionales del paciente:");
-        System.out.println("Diagnóstico:");
-        lector.nextLine(); 
-        String diagnostico = lector.nextLine();
-        System.out.println("Medicamentos recetados:");
-        String medicamentos = lector.nextLine();
+                // Registra al paciente en la bitácora del día.
+                bitacoraDia.encolar(nodoPaciente);
 
-        
-    } else {
-        
-        Paciente expediente = (Paciente) nodoExpediente.getDatos();
-        System.out.println("Datos del paciente:");
-        System.out.println("Cédula: " + expediente.getNúmero_de_Cedula_del_Paciente());
-        System.out.println("Nombre: " + expediente.getNombre_del_Paciente());
-        System.out.println("Edad: " + expediente.getEdad());
-        System.out.println("Género: " + expediente.getGenero());
+                // Muestra el nombre del paciente que será atendido.
+                System.out.println("Atendiendo al paciente: " + paciente.getNombre_del_Paciente());
 
-        
-        System.out.println("Ingrese los detalles de la cita actual:");
-        System.out.println("Diagnóstico:");
-        lector.nextLine(); 
-        String diagnostico = lector.nextLine();
-        System.out.println("Medicamentos recetados:");
-        String medicamentos = lector.nextLine();
+                // Busca el expediente del paciente por su cédula.
+                NodoC nodoExpediente = exped.buscarPorCedula(paciente.getNúmero_de_Cedula_del_Paciente());
 
-  
-    }
+                if (nodoExpediente == null) {
+                    // Caso: el paciente no tiene un expediente previo.
+                    System.out.println("Paciente " + paciente.getNombre_del_Paciente() + " asiste a consulta por primera vez.");
 
-   
-    LocalDateTime fechaCita = LocalDateTime.now();
-    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String fechaCitaFormateada = fechaCita.format(formato);
+                    // Solicita información adicional del paciente.
+                    System.out.println("Ingrese los detalles adicionales del paciente:");
+                    System.out.println("Diagnóstico:");
+                    lector.nextLine(); // Limpia el buffer de entrada.
+                    String diagnostico = lector.nextLine();
+                    System.out.println("Medicamentos recetados:");
+                    String medicamentos = lector.nextLine();
 
-    System.out.println("Paciente " + paciente.getNombre_del_Paciente() + ", su cita ha concluido.");
-    
+                    // Aquí se puede agregar lógica para registrar esta información en un nuevo expediente.
+                } else {
+                    // Caso: el paciente ya tiene un expediente existente.
+                    Paciente expediente = (Paciente) nodoExpediente.getDatos();
+                    System.out.println("Datos del paciente:");
+                    System.out.println("Cédula: " + expediente.getNúmero_de_Cedula_del_Paciente());
+                    System.out.println("Nombre: " + expediente.getNombre_del_Paciente());
+                    System.out.println("Edad: " + expediente.getEdad());
+                    System.out.println("Género: " + expediente.getGenero());
 
+                    // Solicita información adicional de la cita actual.
+                    System.out.println("Ingrese los detalles de la cita actual:");
+                    System.out.println("Diagnóstico:");
+                    lector.nextLine(); // Limpia el buffer de entrada.
+                    String diagnostico = lector.nextLine();
+                    System.out.println("Medicamentos recetados:");
+                    String medicamentos = lector.nextLine();
+
+                    // Aquí se puede agregar lógica para actualizar el expediente del paciente.
+                }
+
+                // Registra la fecha y hora de la cita.
+                LocalDateTime fechaCita = LocalDateTime.now();
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String fechaCitaFormateada = fechaCita.format(formato);
+
+                // Concluye la atención del paciente.
+                System.out.println("Paciente " + paciente.getNombre_del_Paciente() + ", su cita ha concluido.");
+
+                // Llama al menú principal para continuar.
                 Menu2();
                 break;
-   
-                
+
             case 3:
+                // Solicita al usuario el número de ficha del paciente a eliminar.
                 System.out.print("Ingrese el número de ficha del paciente a eliminar: ");
                 String numeroFicha = lector.next();
+
+                // Intenta eliminar la ficha de la cola prioritaria.
                 if (pp.eliminarNodoEspecifico(numeroFicha)) {
-                    System.out.println("La ficha #"+numeroFicha+" ha sido eliminada de la lista de espera");
-                }if (pr.eliminarNodoEspecifico(numeroFicha)) {
-                    System.out.println("La ficha #"+numeroFicha+" ha sido eliminada de la lista de espera");
-                }else {
-                    System.out.println("No se encontró ninguna ficha ingresada");
+                    System.out.println("La ficha #" + numeroFicha + " ha sido eliminada de la lista de espera (cola prioritaria).");
                 }
-                System.out.println("Volviendo al menu..");
+
+                // Intenta eliminar la ficha de la cola regular.
+                if (pr.eliminarNodoEspecifico(numeroFicha)) {
+                    System.out.println("La ficha #" + numeroFicha + " ha sido eliminada de la lista de espera (cola regular).");
+                } else {
+                    // Si la ficha no se encuentra en ninguna de las colas.
+                    System.out.println("No se encontró ninguna ficha ingresada.");
+                }
+
+                // Informa al usuario que se regresa al menú principal.
+                System.out.println("Volviendo al menú...");
                 Menu2();
                 break;
             case 4:
@@ -408,7 +416,7 @@ public static void imprimirclase(){
             case 6:
                 Menu1();
             case 7:
-                
+
             default:
                 System.out.println("\nOpción no válida. Por favor intenta de nuevo.");
                 Menu2();

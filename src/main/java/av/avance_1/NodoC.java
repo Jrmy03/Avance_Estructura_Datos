@@ -14,6 +14,8 @@ public class NodoC {
     private Paciente datos;
     private NodoC atras;
     private NodoC siguiente;
+    private ListaSimple historicoCitas;
+     private ListaSimple historicoMedicamentos;
 
     public NodoC() {
     }
@@ -22,6 +24,8 @@ public class NodoC {
         this.datos = datos;
         this.atras = atras;
         this.siguiente = siguiente;
+        this.historicoCitas = historicoCitas;
+        this.historicoMedicamentos = historicoMedicamentos;
     }
 
     public Paciente getDatos() {
@@ -36,6 +40,14 @@ public class NodoC {
         return siguiente;
     }
 
+    public ListaSimple getHistoricoCitas() {
+        return historicoCitas;
+    }
+
+    public ListaSimple getHistoricoMedicamentos() {
+        return historicoMedicamentos;
+    }
+
     public void setDatos(Paciente datos) {
         this.datos = datos;
     }
@@ -48,6 +60,15 @@ public class NodoC {
         this.siguiente = siguiente;
     }
 
+    public void setHistoricoCitas(ListaSimple historicoCitas) {
+        this.historicoCitas = historicoCitas;
+    }
+
+    public void setHistoricoMedicamentos(ListaSimple historicoMedicamentos) {
+        this.historicoMedicamentos = historicoMedicamentos;
+    }
+
+   
     @Override
     public String toString() {
         return "NodoC{" + "datos=" + datos + ", atras=" + atras + ", siguiente=" + siguiente + '}';

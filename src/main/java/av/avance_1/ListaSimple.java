@@ -7,10 +7,11 @@ package av.avance_1;
  * @author Usuario
  */
 public class ListaSimple {
-/*
+
     private NodoC cabeza;
 
     public ListaSimple() {
+        this.cabeza = null;
     }
 
     public NodoC getCabeza() {
@@ -21,61 +22,65 @@ public class ListaSimple {
         this.cabeza = cabeza;
     }
 
+    /**
+     * Inserta un paciente en la lista de forma ordenada por su número de cédula.
+     *
+     * @param paciente El paciente a insertar.
+     */
     public void insertar(Paciente paciente) {
-        if (cabeza == null) {  // Caso 1: La lista está vacía.
-            //1.1 Crear el nodo.
-            NodoC nuevoNodo = new NodoC();
-            //1.2 Establecer el dato del nodo.
-            nuevoNodo.setDatos(paciente);
-            //1.3 Poner la cabeza a apuntar a este nuevo.
-            cabeza = nuevoNodo;
-        } else if (paciente.getNúmero_de_Cedula_del_Paciente() < cabeza.getDatos().getNúmero_de_Cedula_del_Paciente()) { // Caso 2: El id es menor a la cabeza.
-            // 2.1 Crear el nodo.
-            NodoC nuevoNodo = new NodoC();
-            // 2.2 Establecer el dato del nodo.
-            nuevoNodo.setDatos(paciente);
-            // 2.3 Amarro el nuevo nodo al resto de la lista.
-            nuevoNodo.setSiguiente(cabeza);
-            // 2.4 Mover la cabeza al nuevo nodo que ahora es el primero.
-            cabeza = nuevoNodo;
+        int cedulaPaciente = convertirStringAEntero(paciente.getNúmero_de_Cedula_del_Paciente());
 
-        } else if (cabeza.getSiguiente() == null) { // Caso 3. Si solo tiene un elemento.
-            // 3.1 Crear el nodo.
-            NodoC nuevoNodo = new NodoC();
-            // 3.2 Establece el dato del nodo.
-            nuevoNodo.setDatos(paciente);
-            // 3.3 Amarrar el nuevo nodo a la derecha de la cabeza.
-            cabeza.setSiguiente(nuevoNodo);
-        } else { // No se cumple nada de lo que está arriba
-            // Se debe recorrer la lista para buscar donde le corresponde al elemento
-            // Se recorre con un ciclo.
-            NodoC aux = cabeza;    // Creamos un puntero aux temporal y lo igualamos a la cabeza-
-            while (aux.getSiguiente() != null
-                    && aux.getSiguiente().getDatos().getNúmero_de_Cedula_del_Paciente() < paciente.getNúmero_de_Cedula_del_Paciente()) {
-                // Mientras se de esa condicion (que no llego al final y que los elementos
-                // siguen siendo menores al que deseo insertar-
-                aux = aux.getSiguiente();
-            }
-            // El while sirve para encontrar la posicion donde deseo insertar el elemento.
-            // 4.1 Crear el nodo.
-            NodoC nuevoNodo = new NodoC();
-            // 4.2 Establece el dato del nodo.
-            nuevoNodo.setDatos(paciente);
-            // 4.3 Amarrar el nuevo nodo a la lista.
-            nuevoNodo.setSiguiente(aux.getSiguiente());
-            // 4.4 Amarrar el que esta antes del nuevo nodo al nuevo nodo que estoy
-            // incorporando a la lista.
-            aux.setSiguiente(nuevoNodo);
+        if (cedulaPaciente == -1) {
+            System.out.println("No se puede insertar el paciente debido a un error en su número de cédula.");
+            return;
         }
-    }
 
-    public String toString() {
+        // Caso 1: La lista está vacía
+        if (cabeza == null) {
+            NodoC nuevoNodo = new NodoC();
+            nuevoNodo.setDatos(paciente);
+            cabeza = nuevoNodo;
+            return;
+        }
+
+        // Caso 2: Insertar antes de la cabeza
+        int cedulaCabeza = convertirStringAEntero(cabeza.getDatos().getNúmero_de_Cedula_del_Paciente());
+        if (cedulaPaciente < cedulaCabeza) {
+            NodoC nuevoNodo = new NodoC();
+            nuevoNodo.setDatos(paciente);
+            nuevoNodo.setSiguiente(cabeza);
+            cabeza = nuevoNodo;
+            return;
+        }
+
+        // Caso 3: Recorrer la lista para insertar en la posición correcta
         NodoC aux = cabeza;
-        String buffer = "Lista: ";
-        while (aux != null) {
-            buffer += aux.getDatos() + " ";
+        while (aux.getSiguiente() != null &&
+               convertirStringAEntero(aux.getSiguiente().getDatos().getNúmero_de_Cedula_del_Paciente()) < cedulaPaciente) {
             aux = aux.getSiguiente();
         }
-        return buffer;
-    }*/
+
+        // Insertar el nuevo nodo en la posición encontrada
+        NodoC nuevoNodo = new NodoC();
+        nuevoNodo.setDatos(paciente);
+        nuevoNodo.setSiguiente(aux.getSiguiente());
+        aux.setSiguiente(nuevoNodo);
+    }
+
+   
+
+    /**
+     * Convierte una cadena de texto a un entero.
+     *
+     * @param numero La cadena de texto que representa un número.
+     * @return El número convertido o -1 si hay un error.
+     */
+    private int convertirStringAEntero(String numero) {
+        try {
+            return Integer.parseInt(numero);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: La cadena no es un número válido. Valor: " + numero);
+            return -1; // Valor especial para indicar error
+        }
+    }
 }

@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
- * Clase principal para gestionar el sistema de atención a pacientes. Incluye
- * funcionalidades para asignar fichas, atender pacientes, y gestionar quejas.
+ * Clase principal para gestionar el sistema de atención a pacientes. 
+ * Incluye funcionalidades para asignar fichas, atender pacientes y gestionar quejas.
  *
  * @author Jeremy Emmanuel Lorente Cerdas
  * @author Antonio Jesus Lopez Chacon
@@ -14,34 +14,51 @@ import java.util.Scanner;
 public class Avance_1 {
 
     /**
-     * Escanea y valida la entrada de opciones en el menú.
-     *
-     * @author Jeremy Emmanuel Lorente Cerdas
-     * @author Antonio Jesus Lopez Chacon
-     * @return La opción ingresada por el usuario.
+     * Contador para llevar el control del número de pacientes preferenciales atendidos.
      */
     private static int contador = 0;
+
+    /**
+     * Cola de pacientes regulares.
+     */
     static ColaPacientes pr = new ColaPacientes();
+
+    /**
+     * Cola de pacientes preferenciales.
+     */
     static ColaPacientes pp = new ColaPacientes();
+
+    /**
+     * Cola que registra la bitácora diaria de pacientes atendidos.
+     */
     static ColaPacientes bitacoraDia = new ColaPacientes();
+
+    /**
+     * Scanner para leer datos desde la consola.
+     */
     static final Scanner lector = new Scanner(System.in);
+
+    /**
+     * Pila que almacena quejas de los pacientes.
+     */
     static PilaQuejas pilaDeQuejas = new PilaQuejas();
 
+    /**
+     * Lista doble circular que almacena los expedientes médicos.
+     */
     static ListaDobleCircular exped = new ListaDobleCircular();
 
+    /**
+     * Método para imprimir la clase (actualmente sin implementación).
+     */
     public static void imprimirclase() {
-
+        // Implementación pendiente
     }
 
-    //Public static void consultaBitacora
     /**
-     * Asigna datos a un paciente preferencial.
-     *
-     * @author Jeremy Emmanuel Lorente Cerdas
-     * @author Antonio Jesus Lopez Chacon
+     * Registra los datos de un paciente preferencial y los asigna a la cola correspondiente.
      */
     public static void guardardatosP() {
-
         String cedula = "";
         System.out.println("Cédula:");
         while (cedula.trim().isEmpty()) {
@@ -62,7 +79,7 @@ public class Avance_1 {
         }
         edad = lector.nextInt();
 
-        String Genero = "";
+        String genero = "";
         System.out.println("Género:\n\n1. Hombre\n2. Mujer\n");
         int opcion = lector.nextInt();
         while (opcion != 1 && opcion != 2) {
@@ -70,27 +87,22 @@ public class Avance_1 {
             opcion = lector.nextInt();
         }
         if (opcion == 1) {
-            Genero = "Hombre";
+            genero = "Hombre";
         } else if (opcion == 2) {
-            Genero = "Mujer";
+            genero = "Mujer";
         }
 
         LocalDateTime fechaHoraLlegada = LocalDateTime.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String horaDeLlegada = fechaHoraLlegada.format(formato);
 
-        pp.asignarFichaPreferencial(horaDeLlegada, nombre, Genero, cedula, edad);
-
+        pp.asignarFichaPreferencial(horaDeLlegada, nombre, genero, cedula, edad);
     }
 
     /**
-     * Asigna datos a un paciente regulares.
-     *
-     * @author Jeremy Emmanuel Lorente Cerdas
-     * @author Antonio Jesus Lopez Chacon
+     * Registra los datos de un paciente regular y los asigna a la cola correspondiente.
      */
     public static void guardardatosR() {
-        //Cedula
         String cedula = "";
         System.out.println("Cédula:");
         while (cedula.trim().isEmpty()) {
@@ -111,7 +123,7 @@ public class Avance_1 {
         }
         edad = lector.nextInt();
 
-        String Genero = "";
+        String genero = "";
         System.out.println("Género:\n\n1. Hombre\n2. Mujer\n");
         int opcion = lector.nextInt();
         while (opcion != 1 && opcion != 2) {
@@ -119,29 +131,22 @@ public class Avance_1 {
             opcion = lector.nextInt();
         }
         if (opcion == 1) {
-            Genero = "Hombre";
+            genero = "Hombre";
         } else if (opcion == 2) {
-            Genero = "Mujer";
+            genero = "Mujer";
         }
 
         LocalDateTime fechaHoraLlegada = LocalDateTime.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String horaDeLlegada = fechaHoraLlegada.format(formato);
 
-        pr.asignarFichaRegulares(horaDeLlegada, nombre, Genero, cedula, edad);
-
-    }
-
-    public static void mostarBitacoraDia() {
-        NodoC revisa = bitacoraDia.getFrente();
+        pr.asignarFichaRegulares(horaDeLlegada, nombre, genero, cedula, edad);
     }
 
     /**
-     * Muestra las fichas de pacientes pendientes en las colas preferenciales y
-     * regulares.
+     * Muestra las fichas pendientes de pacientes en las colas preferenciales y regulares.
      */
     public static void mostrarFichasPendientes() {
-
         System.out.println("Fichas Preferenciales:");
         NodoC nodoPreferencial = pp.getFrente();
         while (nodoPreferencial != null) {
@@ -160,10 +165,9 @@ public class Avance_1 {
     }
 
     /**
-     * Atiende a un paciente, priorizando los preferenciales cada dos turnos.
+     * Atiende a un paciente, dando prioridad a los pacientes preferenciales cada dos turnos.
      */
     public static void atenderPaciente() {
-        // Verificar si hay pacientes en las colas
         if (pp.esVacia() && pr.esVacia()) {
             System.out.println("No hay pacientes en cola para atender.");
             Menu2();
@@ -171,10 +175,10 @@ public class Avance_1 {
         }
 
         NodoC nodoPaciente;
-        if (contador < 2 && !pp.esVacia()) { // Atender paciente preferencial si hay menos de 2 atendidos
+        if (contador < 2 && !pp.esVacia()) {
             nodoPaciente = pp.desencolar();
             contador++;
-        } else if (!pr.esVacia()) { // Atender paciente regular
+        } else if (!pr.esVacia()) {
             nodoPaciente = pr.desencolar();
         } else {
             System.out.println("No hay pacientes en cola para atender.");
@@ -186,15 +190,12 @@ public class Avance_1 {
         Expediente expedienteExistente = exped.buscarPorCedula(datosPaciente.getNúmero_de_Cedula_del_Paciente());
 
         if (expedienteExistente == null) {
-            // Primera vez: Mostrar mensaje y permitir al doctor crear el expediente
             System.out.println("Paciente " + datosPaciente.getNombre_del_Paciente() + " asiste a consulta por primera vez.");
 
-            // Permitir al doctor ingresar los datos de la cita
             ListaSimpleCircular citas = new ListaSimpleCircular();
             ListaSimpleCircular medicamentos = new ListaSimpleCircular();
             ingresarDatosCita(citas, medicamentos);
 
-            // Crear y guardar el nuevo expediente
             Expediente nuevoExpediente = new Expediente(
                     datosPaciente.getNúmero_de_Cedula_del_Paciente(),
                     datosPaciente.getNombre_del_Paciente(),
@@ -204,30 +205,30 @@ public class Avance_1 {
                     medicamentos
             );
             exped.agregar(nuevoExpediente);
-
         } else {
-            // Paciente existente: Mostrar datos del expediente
             System.out.println("Paciente encontrado en el expediente:");
             System.out.println("Cédula: " + expedienteExistente.getCedula());
             System.out.println("Nombre: " + expedienteExistente.getNombre());
             System.out.println("Edad: " + expedienteExistente.getEdad());
             System.out.println("Género: " + expedienteExistente.getGenero());
 
-            // Permitir al doctor ingresar los datos de la cita
             ingresarDatosCita(expedienteExistente.getHistoricoDeCitas(), expedienteExistente.getHistoricoDeMedicamentos());
 
-            // Aquí, la estructura de datos ya está actualizada
             System.out.println("Datos del expediente actualizados.");
         }
 
-        // Registrar la cita en la bitácora diaria
         bitacoraDia.encolar(nodoPaciente);
 
         // Mensaje final
         System.out.println("Paciente " + datosPaciente.getNombre_del_Paciente() + ", su cita ha concluido.");
         Menu2();
     }
-
+/**
+     * Método para ingresar datos de una cita y registrar medicamentos prescritos.
+     *
+     * @param citas Lista circular simple donde se almacenarán los detalles de la cita.
+     * @param medicamentos Lista circular simple donde se registrarán los medicamentos prescritos.
+     */
     private static void ingresarDatosCita(ListaSimpleCircular citas, ListaSimpleCircular medicamentos) {
         java.util.Scanner scanner = new java.util.Scanner(System.in);
 
@@ -246,7 +247,10 @@ public class Avance_1 {
         System.out.println("Datos de la cita y medicamentos registrados exitosamente.");
     }
 
-    //////////////////////////////////////////////////-------------//////////////////////////////////////////////////
+ /**
+     * Método que gestiona la atención de pacientes de manera preferencial o regular.
+     * Atiende hasta dos pacientes preferenciales antes de atender un paciente regular.
+     */
     public static void atenderFicha() {
         if (contador < 2 && !pp.esVacia()) {
             NodoC pacientePreferencial = pp.desencolar();
@@ -262,57 +266,71 @@ public class Avance_1 {
         Menu2();
     }
 
-    private static void crearExpediente(NodoC nodoPaciente) {
+    /**
+     * Método para crear o actualizar el expediente de un paciente.
+     *
+     * @param nodoPaciente Nodo que contiene los datos del paciente a atender.
+     */
+   private static void crearExpediente(NodoC nodoPaciente) {
         Paciente datosPaciente = nodoPaciente.getDatos();
-
+ 
         // Verificar si ya existe un expediente con la misma cédula
         Expediente expedienteExistente = exped.buscarPorCedula(datosPaciente.getNúmero_de_Cedula_del_Paciente());
-
+        System.out.println("Mensaje para el usuario:");
         System.out.println("\nPaciente " + datosPaciente.getNombre_del_Paciente() + " con ficha " + datosPaciente.getNúmero_de_ficha() + " pasar a consulta\n");
-
-        System.out.println("Mensajes para el doctor:");
-        System.out.println("Paciente " + datosPaciente.getNombre_del_Paciente() + " asiste a consulta por primera vez\n\n");
+        if (expedienteExistente != null) {
+            System.out.println("Mensajes para el doctor:\n");
+            System.out.println("Expediente del paciente con ficha " + datosPaciente.getNúmero_de_ficha() + ":\n"
+                    + "Cédula: " + datosPaciente.getNúmero_de_Cedula_del_Paciente()
+                    + "\nNombre: " + datosPaciente.getNombre_del_Paciente()
+                    + "\nEdad: " + datosPaciente.getEdad()
+                    + "\nGénero: " + datosPaciente.getGenero());
+        } else {
+            System.out.println("Mensajes para el doctor:");
+            System.out.println("Paciente " + datosPaciente.getNombre_del_Paciente() + " asiste a consulta por primera vez\n\n");
+        }
+ 
         // Solicitar datos para la nueva cita
         Scanner lector = new Scanner(System.in);
-
+ 
         String fechaCita = "";
         System.out.println("Ingrese la fecha de la cita:");
         while (fechaCita.trim().isEmpty()) {
             fechaCita = lector.nextLine();
         }
-
+ 
         String nombreDoctor = "";
         System.out.println("Ingrese el nombre del doctor:");
         while (nombreDoctor.trim().isEmpty()) {
             nombreDoctor = lector.nextLine();
         }
-
+ 
         String diagnostico = "";
         System.out.println("Ingrese el diagnóstico:");
         while (diagnostico.trim().isEmpty()) {
             diagnostico = lector.nextLine();
         }
-
+ 
         NodoCita nuevaCita = new NodoCita(fechaCita, nombreDoctor, diagnostico);
-
+ 
         // Solicitar datos para el nuevo medicamento
         String fechaMedicamento = "";
         System.out.println("Ingrese la fecha de prescripción del medicamento:");
         while (fechaMedicamento.trim().isEmpty()) {
             fechaMedicamento = lector.nextLine();
         }
-
+ 
         String medicamento = "";
         System.out.println("Ingrese el medicamento prescrito:");
         while (medicamento.trim().isEmpty()) {
             medicamento = lector.nextLine();
         }
-
+ 
         NodoMedicamento nuevoMedicamento = new NodoMedicamento(fechaMedicamento, medicamento);
-
+ 
         if (expedienteExistente != null) {
             // Si el expediente ya existe, actualizar las listas
-            System.out.println("El expediente ya existe. Se actualizarán los datos.\n");
+            System.out.println("Actualizando expediente de " + datosPaciente.getNombre_del_Paciente() + "\n");
             expedienteExistente.getHistoricoDeCitas().agregar(nuevaCita);
             expedienteExistente.getHistoricoDeMedicamentos().agregar(nuevoMedicamento);
             System.out.println("Expediente actualizado para: " + datosPaciente.getNombre_del_Paciente() + "\n");
@@ -321,10 +339,10 @@ public class Avance_1 {
             System.out.println("Creando un nuevo expediente para el paciente...\n");
             ListaSimpleCircular citas = new ListaSimpleCircular();
             citas.agregar(nuevaCita);
-
+ 
             ListaSimpleCircular medicamentos = new ListaSimpleCircular();
             medicamentos.agregar(nuevoMedicamento);
-
+ 
             Expediente nuevoExpediente = new Expediente(
                     datosPaciente.getNúmero_de_Cedula_del_Paciente(),
                     datosPaciente.getNombre_del_Paciente(),
@@ -333,53 +351,14 @@ public class Avance_1 {
                     citas,
                     medicamentos
             );
-
+ 
             exped.agregar(nuevoExpediente);
             System.out.println("Expediente creado exitosamente para: " + datosPaciente.getNombre_del_Paciente() + "\n");
         }
-
+ 
         // Agregar a la bitácora del día
         bitacoraDia.encolar(nodoPaciente);
     }
-
-    /*public static void atenderPaciente() {
-        if (pp.esVacia() && pr.esVacia()) {
-            System.out.println("No hay pacientes en espera.");
-            return;
-        }
-
-        if (contador < 2 && !pp.esVacia()) {
-            NodoC pacientePreferencial = pp.desencolar();
-            bitacoraDia.encolar(pacientePreferencial);
-            System.out.println("Ficha #" + pacientePreferencial.getDatos().getNúmero_de_ficha() + " con cédula "
-                    + pacientePreferencial.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
-            contador++;
-            return;
-        }
-
-        if (contador == 2 || pp.esVacia()) {
-            if (!pr.esVacia()) {
-                NodoC pacienteRegular = pr.desencolar();
-                bitacoraDia.encolar(pacienteRegular);
-                System.out.println("Ficha #" + pacienteRegular.getDatos().getNúmero_de_ficha() + " con cédula "
-                        + pacienteRegular.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
-                contador = 0;
-            }
-            return;
-        }
-
-        if (pp.esVacia() && !pr.esVacia()) {
-            NodoC pacienteRegular = pr.desencolar();
-            bitacoraDia.encolar(pacienteRegular);
-            System.out.println("Ficha #" + pacienteRegular.getDatos().getNúmero_de_ficha() + " con cédula "
-                    + pacienteRegular.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
-        } else if (!pp.esVacia() && pr.esVacia()) {
-            NodoC pacientePreferencial = pp.desencolar();
-            bitacoraDia.encolar(pacientePreferencial);
-            System.out.println("Ficha #" + pacientePreferencial.getDatos().getNúmero_de_ficha() + " con cédula "
-                    + pacientePreferencial.getDatos().getNúmero_de_Cedula_del_Paciente() + " pasar a consulta médica.");
-        }
-    }*/
     /**
      * Escanea y valida la entrada de opciones en el menú.
      *

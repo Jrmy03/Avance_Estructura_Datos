@@ -1,10 +1,11 @@
 package av.avance_1;
 
-
-
-
-
-
+/**
+ * Clase que implementa una lista doblemente circular para almacenar expedientes de pacientes.
+ * Permite realizar operaciones como agregar un expediente, buscar por cédula y navegar por la lista.
+ *  @author Jeremy Emmanuel Lorente Cerdas
+ *  @author Antonio Jesus Lopez Chacon
+ */
 public class ListaDobleCircular {
 
     private NodoExpediente inicio;
@@ -38,6 +39,11 @@ public class ListaDobleCircular {
     }
     
     
+    /**
+     * Agrega un nuevo expediente a la lista, siempre que no exista uno con la misma cédula.
+     *
+     * @param expediente El expediente a agregar a la lista.
+     */
     
     public void agregar(Expediente expediente) {
     // Verificar si el expediente ya existe por cédula
@@ -60,7 +66,12 @@ public class ListaDobleCircular {
     }
     tamaño++;
 }
-    
+    /**
+     * Busca un expediente en la lista mediante la cédula del paciente.
+     *
+     * @param cedula La cédula del expediente a buscar.
+     * @return El expediente encontrado o null si no existe en la lista.
+     */
     public Expediente buscarPorCedula(String cedula) {
     if (esVacia()) {
         return null;
@@ -75,7 +86,10 @@ public class ListaDobleCircular {
     } while (actual != inicio);
     return null;
 }
-
+ /**
+     * Método que permite navegar por la lista de expedientes.
+     * Muestra el expediente actual y permite moverse al siguiente o al anterior.
+     */
     public void navegar() {
         if (esVacia()) {
             System.out.println("La lista está vacía.\n");
@@ -112,7 +126,12 @@ public class ListaDobleCircular {
             }
         } while (!opcion.equals("3"));
     }
-    
+     /**
+     * Muestra los detalles de un expediente específico, incluidos el historial de citas
+     * y el historial de medicamentos.
+     *
+     * @param expediente El expediente a mostrar.
+     */
     private void mostrarExpediente(Expediente expediente) {
         System.out.println("Cédula: " + expediente.getCedula());
         System.out.println("Nombre: " + expediente.getNombre());

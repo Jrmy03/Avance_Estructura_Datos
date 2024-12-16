@@ -1,106 +1,254 @@
-
 package av.avance_1;
 
 
+
+
+
+
 public class ListaDobleCircular {
+
+    private NodoExpediente inicio;
+    private int tamaño;
+
     
-    private NodoC cabeza;
-    private NodoC ultimo;
-
-    public void inserta(Paciente p) {
-        int cedulaPaciente = convertirStringAEntero(p.getNúmero_de_Cedula_del_Paciente());
-
-        if (cabeza == null) {
-            // Paso 1: Lista vacía, insertamos el primer nodo
-            cabeza = new NodoC(p);
-            ultimo = cabeza;
-            cabeza.setAtras(ultimo);
-            cabeza.setSiguiente(ultimo);
-            ultimo.setSiguiente(cabeza);
-            ultimo.setAtras(cabeza);
-        } else {
-            int cedulaCabeza = convertirStringAEntero(cabeza.getDatos().getNúmero_de_Cedula_del_Paciente());
-            if (cedulaPaciente < cedulaCabeza) {
-                // Paso 2: Insertar antes de la cabeza
-                NodoC aux = new NodoC(p);
-                aux.setSiguiente(cabeza);
-                cabeza.setAtras(aux);
-                cabeza = aux;
-                cabeza.setAtras(ultimo);
-                ultimo.setSiguiente(cabeza);
-            } else {
-                int cedulaUltimo = convertirStringAEntero(ultimo.getDatos().getNúmero_de_Cedula_del_Paciente());
-                if (cedulaPaciente > cedulaUltimo) {
-                    // Paso 3: Insertar después del último
-                    NodoC aux = new NodoC(p);
-                    aux.setAtras(ultimo);
-                    ultimo.setSiguiente(aux);
-                    ultimo = aux;
-                    ultimo.setSiguiente(cabeza);
-                    cabeza.setAtras(ultimo);
-                } else {
-                    // Paso 4: Insertar en medio
-                    NodoC aux = cabeza.getSiguiente();
-                    while (convertirStringAEntero(aux.getDatos().getNúmero_de_Cedula_del_Paciente()) < cedulaPaciente) {
-                        aux = aux.getSiguiente();
-                    }
-
-                    NodoC temp = new NodoC(p);
-                    temp.setAtras(aux.getAtras());
-                    temp.setSiguiente(aux);
-                    aux.setAtras(temp);
-                    temp.getAtras().setSiguiente(temp);
-                }
-            }
-        }
+    
+    public ListaDobleCircular() {
+        this.inicio = null;
+        this.tamaño = 0;
     }
 
-    // Método para convertir un String a int
-    private int convertirStringAEntero(String numero) {
-        try {
-            return Integer.parseInt(numero); // Convierte el String a un entero
-        } catch (NumberFormatException e) {
-            System.out.println("Error: La cadena no es un número válido. Valor: " + numero);
-            return -1; // Devuelve un valor especial o lanza una excepción personalizada si prefieres
-        }
-    }
-public NodoC buscarPorCedula(String cedula) {
-    if (cabeza == null) {
-        return null; 
+    public boolean esVacia() {
+        return inicio == null;
     }
 
-    NodoC aux = cabeza;
+    public int getTamaño() {
+        return tamaño;
+    }
+
+    public NodoExpediente getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(NodoExpediente inicio) {
+        this.inicio = inicio;
+    }
+
+    public void setTamaño(int tamaño) {
+        this.tamaño = tamaño;
+    }
+    
+    
+    
+    public void agregar(Expediente expediente) {
+    // Verificar si el expediente ya existe por cédula
+    if (buscarPorCedula(expediente.getCedula()) != null) {
+        System.out.println("Expediente con cédula " + expediente.getCedula() + " ya existe.");
+        return;  // No agregar el expediente
+    }
+
+    NodoExpediente nuevo = new NodoExpediente(expediente);
+    if (esVacia()) {
+        inicio = nuevo;
+        inicio.setSiguiente(inicio);
+        inicio.setAnterior(inicio);
+    } else {
+        NodoExpediente ultimo = inicio.getAnterior();
+        ultimo.setSiguiente(nuevo);
+        nuevo.setAnterior(ultimo);
+        nuevo.setSiguiente(inicio);
+        inicio.setAnterior(nuevo);
+    }
+    tamaño++;
+}
+    
+    public Expediente buscarPorCedula(String cedula) {
+    if (esVacia()) {
+        return null;
+    }
+    NodoExpediente actual = inicio;
     do {
-        if (aux.getDatos().getNúmero_de_Cedula_del_Paciente().equals(cedula)) {
-            return aux; 
+        Expediente expediente = actual.getDatos();
+        if (expediente.getCedula().equals(cedula)) {
+            return expediente;
         }
-        aux = aux.getSiguiente();
-    } while (aux != cabeza);
-
-    return null; 
+        actual = actual.getSiguiente();
+    } while (actual != inicio);
+    return null;
 }
-    
-    @Override
-    public String toString() {
-        String respuesta = "Lista doble circular: \n";
 
-        if (cabeza != null) {
-            NodoC aux = cabeza;
-
-            respuesta += aux.toString() + "\n";
-
-            aux = aux.getSiguiente();
-
-            while (aux != cabeza) {
-                respuesta += aux.toString() + "\n";
-                aux = aux.getSiguiente();
-            }
-        } else {
-            respuesta += "Vacía";
+    public void navegar() {
+        if (esVacia()) {
+            System.out.println("La lista está vacía.\n");
+            return;
         }
+        NodoExpediente actual = inicio;
+        java.util.Scanner lector = new java.util.Scanner(System.in);
+        String opcion;
 
-        return respuesta;
+        do {
+            System.out.println("\nMostrando expediente actual:\n");
+            mostrarExpediente(actual.getDatos());
+
+            System.out.println("Opciones: ");
+            System.out.println("1. Siguiente (>)");
+            System.out.println("2. Anterior (<)");
+            System.out.println("3. Salir (x)");
+            System.out.print("Seleccione una opción: ");
+            opcion = lector.nextLine();
+
+            switch (opcion) {
+                case "1":
+                    actual = actual.getSiguiente();
+                    break;
+                case "2":
+                    actual = actual.getAnterior();
+                    break;
+                case "3":
+                    System.out.println("Saliendo de la navegación.");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+                    break;
+            }
+        } while (!opcion.equals("3"));
     }
     
+    private void mostrarExpediente(Expediente expediente) {
+        System.out.println("Cédula: " + expediente.getCedula());
+        System.out.println("Nombre: " + expediente.getNombre());
+        System.out.println("Edad: " + expediente.getEdad());
+        System.out.println("Género: " + expediente.getGenero());
+        System.out.println("Histórico de Citas:\n");
+        expediente.getHistoricoDeCitas().mostrar();
+        System.out.println("Histórico de Medicamentos:\n");
+        expediente.getHistoricoDeMedicamentos().mostrar();
+        System.out.println("-----------------------------------");
+    }
 }
-  
+    
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    public Expediente buscarExpedientePorCedula(String cedula) {
+    if (esVacia()) return null;
+
+    NodoExpediente actual = this.inicio;
+    do {
+        Expediente expediente = actual.getDatos();
+        if (expediente.getCedula().equals(cedula)) {
+            return expediente; // Retorna el expediente encontrado
+        }
+        actual = actual.getSiguiente();
+    } while (actual != this.inicio);
+
+    return null; // Si no encuentra ningún expediente, retorna null
+}
+}
+    //////////////////////////////
+    /*
+    public Expediente buscarExpedientePorCedula(String cedula) {
+    if (esVacia()) {
+        return null;
+    }
+
+    NodoExpediente actual = inicio;
+    do {
+        if (actual.getDatos().getCedula().equals(cedula)) {
+            return actual.getDatos();
+        }
+        actual = actual.getSiguiente();
+    } while (actual != inicio);
+
+    return null;
+    }
+}*/
+
+/*
+    public void agregarExpediente(Expediente nuevoExpediente) {
+        if (Cabeza == null) {
+            // Lista vacía: crear el primer nodo
+            Cabeza = new NodoExpediente(nuevoExpediente);
+            Cabeza.Siguiente = Cabeza;
+            Cabeza.Anterior = Cabeza;
+            System.out.println("Expediente agregado exitosamente.");
+            return;
+        }
+
+        // Verificar si la cédula ya existe
+        NodoExpediente Actual = Cabeza;
+        do {
+            if (Actual.Datos.getCedula().equals(nuevoExpediente.getCedula())) {
+                System.out.println("Ese expediente ya existe.");
+                return;
+            }
+            Actual = Actual.Siguiente;
+        } while (Actual != Cabeza);
+
+        // Agregar el nuevo nodo al final de la lista
+        NodoExpediente nuevoNodo = new NodoExpediente(nuevoExpediente);
+        NodoExpediente Ultimo = Cabeza.Anterior;
+
+        Ultimo.Siguiente = nuevoNodo;
+        nuevoNodo.Anterior = Ultimo;
+
+        nuevoNodo.Siguiente = Cabeza;
+        Cabeza.Anterior = nuevoNodo;
+
+        System.out.println("Expediente agregado exitosamente.");
+    }*/

@@ -15,6 +15,7 @@ public class NodoC {
     private NodoC atras;
     private NodoC siguiente;
     private ListaSimple historicoCitas;
+    
      private ListaSimple historicoMedicamentos;
 
     public NodoC() {

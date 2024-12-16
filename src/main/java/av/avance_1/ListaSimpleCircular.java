@@ -2,89 +2,67 @@
 package av.avance_1;
 
 
+public class ListaSimpleCircular<T> {
+    private T inicio;
 
-public class ListaSimpleCircular {
-    
-    
-    NodoC cabeza;
-    NodoC ultimo;
+    public ListaSimpleCircular() {
+        this.inicio = null;
+    }
 
-    public void inserta(Paciente paciente) {
-        int cedulaPaciente = convertirStringAEntero(paciente.getNúmero_de_Cedula_del_Paciente());
+    public boolean esVacia() {
+        return inicio == null;
+    }
 
-        if (cabeza == null) {
-            cabeza = new NodoC(paciente);
-            ultimo = cabeza;
-            ultimo.setSiguiente(cabeza);
+    public void agregar(T nuevoNodo) {
+        if (esVacia()) {
+            inicio = nuevoNodo;
+            if (nuevoNodo instanceof NodoCita) {
+                ((NodoCita) nuevoNodo).setSiguiente((NodoCita) inicio);
+            } else if (nuevoNodo instanceof NodoMedicamento) {
+                ((NodoMedicamento) nuevoNodo).setSiguiente((NodoMedicamento) inicio);
+            }
         } else {
-            int cedulaCabeza = convertirStringAEntero(cabeza.getDatos().getNúmero_de_Cedula_del_Paciente());
-            if (cedulaPaciente < cedulaCabeza) {
-                // Insertamos al inicio
-                NodoC auxiliar = new NodoC(paciente);
-                auxiliar.setSiguiente(cabeza);
-                cabeza = auxiliar;
-                ultimo.setSiguiente(cabeza);
-            } else {
-                int cedulaUltimo = convertirStringAEntero(ultimo.getDatos().getNúmero_de_Cedula_del_Paciente());
-                if (cedulaUltimo < cedulaPaciente) {
-                    // Insertamos al final
-                    NodoC auxiliar = new NodoC(paciente);
-                    ultimo.setSiguiente(auxiliar);
-                    ultimo = auxiliar;
-                    ultimo.setSiguiente(cabeza);
-                } else {
-                    // Insertamos en el medio de la lista
-                    NodoC auxiliar = cabeza;
-                    while (convertirStringAEntero(auxiliar.getSiguiente().getDatos().getNúmero_de_Cedula_del_Paciente()) < cedulaPaciente) {
-                        auxiliar = auxiliar.getSiguiente();
-                    }
-
-                    NodoC temporal = new NodoC(paciente);
-                    temporal.setSiguiente(auxiliar.getSiguiente());
-                    auxiliar.setSiguiente(temporal);
+            if (nuevoNodo instanceof NodoCita) {
+                NodoCita actual = (NodoCita) inicio;
+                while (actual.getSiguiente() != inicio) {
+                    actual = actual.getSiguiente();
                 }
+                actual.setSiguiente((NodoCita) nuevoNodo);
+                ((NodoCita) nuevoNodo).setSiguiente((NodoCita) inicio);
+            } else if (nuevoNodo instanceof NodoMedicamento) {
+                NodoMedicamento actual = (NodoMedicamento) inicio;
+                while (actual.getSiguiente() != inicio) {
+                    actual = actual.getSiguiente();
+                }
+                actual.setSiguiente((NodoMedicamento) nuevoNodo);
+                ((NodoMedicamento) nuevoNodo).setSiguiente((NodoMedicamento) inicio);
             }
         }
     }
 
-    // Método para convertir un String a int
-    private int convertirStringAEntero(String numero) {
-        try {
-            return Integer.parseInt(numero); // Convierte el String a un entero
-        } catch (NumberFormatException e) {
-            System.out.println("Error: La cadena no es un número válido. Valor: " + numero);
-            return -1; // Devuelve un valor especial o lanza una excepción personalizada si prefieres
-        }
-    }
-
-    public String imprimirSiguienteDelUltimo() {
-        return ultimo.getSiguiente().toString();
-    }
-
-    @Override
-    public String toString() {
-        String respuesta = "Lista circular: \n";
-
-        NodoC auxiliar = cabeza;
-
-        if (auxiliar != null) {
-
-            respuesta += auxiliar.toString() + "\n";
-            auxiliar = auxiliar.getSiguiente();
-            while (auxiliar != cabeza) {
-                respuesta += auxiliar.toString() + "\n";
-                auxiliar = auxiliar.getSiguiente();
+    public void mostrar() {
+        if (!esVacia()) {
+            if (inicio instanceof NodoCita) {
+                NodoCita actual = (NodoCita) inicio;
+                do {
+                    System.out.println("Fecha: " + actual.getFecha() +
+                                       ", Doctor: " + actual.getDoctor() +
+                                       ", Diagnóstico: " + actual.getDiagnostico()+"\n");
+                    actual = actual.getSiguiente();
+                } while (actual != inicio);
+            } else if (inicio instanceof NodoMedicamento) {
+                NodoMedicamento actual = (NodoMedicamento) inicio;
+                do {
+                    System.out.println("Fecha de prescripción: " + actual.getFechaPrescripcion() +
+                                       ", Medicamento: " + actual.getMedicamento()+"\n");
+                    actual = actual.getSiguiente();
+                } while (actual != inicio);
             }
         } else {
-            respuesta += "Vacía";
+            System.out.println("La lista está vacía.\n");
         }
-
-        return respuesta;
     }
 }
-    
-    
-    
-    
-    
-    
+
+
+

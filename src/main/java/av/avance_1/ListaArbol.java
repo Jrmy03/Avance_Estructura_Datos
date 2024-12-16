@@ -1,10 +1,18 @@
-
 package av.avance_1;
+
+/**
+ * Clase que implementa una lista enlazada para gestionar preguntas y
+ * respuestas. Proporciona funcionalidades para insertar, buscar y mostrar
+ * preguntas en la lista.
+ *
+ * @author Jeremy Emmanuel Lorente Cerdas
+ * @author Antonio Jesus Lopez Chacon
+ */
 public class ListaArbol {
-  
 
     // Nodo interno para la lista
     private class NodoC {
+
         private Pregunta pregunta;
         private NodoC siguiente;
 
@@ -37,7 +45,11 @@ public class ListaArbol {
         return cabeza == null;
     }
 
-    // Método para insertar una pregunta al final de la lista
+    /**
+     * Inserta una nueva pregunta al final de la lista.
+     *
+     * @param pregunta Objeto Pregunta a añadir a la lista.
+     */
     public void insertar(Pregunta pregunta) {
         NodoC nuevoNodo = new NodoC(pregunta);
 
@@ -52,7 +64,12 @@ public class ListaArbol {
         }
     }
 
-    // Método para buscar una pregunta por su código
+    /**
+     * Busca una pregunta en la lista basada en su código.
+     *
+     * @param codigo Código de la pregunta a buscar.
+     * @return Objeto Pregunta encontrado o null si no existe.
+     */
     public Pregunta buscarPregunta(String codigo) {
         NodoC actual = cabeza;
 
@@ -66,7 +83,10 @@ public class ListaArbol {
         return null; // No se encontró la pregunta
     }
 
-    // Método para mostrar todas las preguntas
+    /**
+     * Muestra todas las preguntas almacenadas en la lista. Si la lista está
+     * vacía, informa al usuario.
+     */
     public void mostrarPreguntas() {
         if (estaVacia()) {
             System.out.println("La lista está vacía.");
@@ -81,7 +101,13 @@ public class ListaArbol {
         }
     }
 
-    // Método para buscar la respuesta de una pregunta específica por su código
+    /**
+     * Busca la respuesta asociada a una pregunta específica basada en su
+     * código.
+     *
+     * @param codigo Código de la pregunta cuya respuesta se desea obtener.
+     * @return Respuesta de la pregunta o null si no se encuentra la pregunta.
+     */
     public String buscarRespuesta(String codigo) {
         Pregunta pregunta = buscarPregunta(codigo);
 
@@ -91,4 +117,4 @@ public class ListaArbol {
 
         return null; // No se encontró la pregunta
     }
-    }
+}

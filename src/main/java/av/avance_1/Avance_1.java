@@ -439,6 +439,10 @@ public class Avance_1 {
                     + "3. Atrás");
 
             switch (scanner.nextInt()) {
+                /**
+                 * Opción para interactuar con el chatbot. Se precarga el árbol de preguntas frecuentes
+                 * y se inicia el proceso de consulta.
+                 */
                 case 1:
                     ArbolChatbot arbol = new ArbolChatbot();
                     arbol.precargarArbol();
@@ -446,8 +450,13 @@ public class Avance_1 {
 
                     break;
 
-                case 2: // 
-                    
+                case 2: 
+                     /**
+                 * Opción para realizar mantenimiento del chatbot. Permite modificar 
+                 * las preguntas y respuestas almacenadas en el árbol.
+                 */
+                    ArbolChatbot arbol1 = new ArbolChatbot();
+                    arbol1.menuMantenimiento();
               
                     break;
 
@@ -456,7 +465,7 @@ public class Avance_1 {
                     Menu1();
                     return;
 
-                default: // Manejar opción no válida
+                default: 
                     System.out.println("Opción no válida. Intente nuevamente.");
             }
         }

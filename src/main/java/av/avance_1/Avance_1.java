@@ -238,7 +238,7 @@ public class Avance_1 {
                 System.out.println("Módulo de llegada de Pacientes en Emergencias");
                 break;
             case 3:
-                System.out.println("Apache NetBeans IDE.20. Avance 1 V 1.0.0.");
+               Menu3();
             case 4:
                 System.out.println("Salir");
                 System.exit(0);
@@ -422,6 +422,48 @@ public class Avance_1 {
                 Menu2();
         }
     }
+    /**
+     * Selecciona y ejecuta una opción del menú del chatbot.
+     *
+     * @author Jeremy Emmanuel Lorente Cerdas
+     * @author Antonio Jesus Lopez Chacon
+     * @param escanear() La opción seleccionada en el menú principal.
+     */
+    public static void Menu3() {
+      
+        Scanner scanner = new Scanner(System.in);
+        while (true) { // Submenú principal en un bucle
+            System.out.println("¡Bienvenido al Chatbot de Preguntas Frecuentes!");
+            System.out.println("1. Ver chatbot \n"
+                    + "2. Mantenimiento del chatbot  \n"
+                    + "3. Atrás");
+
+            switch (scanner.nextInt()) {
+                case 1:
+                    ArbolChatbot arbol = new ArbolChatbot();
+                    arbol.precargarArbol();
+                    arbol.iniciarChat();
+
+                    break;
+
+                case 2: // 
+                    
+              
+                    break;
+
+                case 3:
+                    System.out.println("Saliendo del Chatbot de Preguntas Frecuentes...");
+                    Menu1();
+                    return;
+
+                default: // Manejar opción no válida
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+
+    }
+
+    
 
     public static void main(String[] args) {
 
